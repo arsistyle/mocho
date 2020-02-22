@@ -1,0 +1,199 @@
+@if map-deep-get($_CONFIG, 'componentes', 'alertas', 'activo') {
+	
+	$alertas: ();
+
+	@each $alerta, $color in map-deep-get($_CONFIG, 'ui', 'colores', 'alertas') {
+		$_alerta : ($alerta: $color);
+		$alertas: map-merge($alertas, $_alerta );
+	}
+
+	.alerta {
+		$t : &;
+		position: relative;
+		padding: 3rem;
+		font-size: 1.6em;
+		margin: 3rem 0;
+		font-weight: 400;
+		color: gris(32);
+		background: rgba(gris(96),.85);
+		@if map-deep-get($_CONFIG, 'ui', 'radios', 'activo') {
+      border-radius: map-deep-get($_CONFIG, 'ui', 'radios', 'valor');
+		}
+		& > :first-child {
+			margin-top: 0;
+		}
+		& > :last-child {
+			margin-bottom: 0;
+		}
+		&--xsmall {
+			font-size: 1.3rem;
+			padding: 1.5rem;
+		}
+		&--small {
+			font-size: 1.5rem;
+			padding: 2rem;
+		}
+		&--hc {
+			background: rgba(gris(18),.85);
+			color: blanco(1);
+		}
+		&--close {
+			padding-right: 4rem;
+		}
+		&__content {
+			display: flex;
+			align-items: center;
+			margin: 0 -1.5rem;
+		}
+		&__icon {
+			margin: 0 1.5rem;
+			font-size: 3rem;
+			line-height: .75;
+			&:before{
+				line-height: 1;
+			}
+		}
+		&__text {
+			margin: 0 1rem;
+		}
+
+		@each $alerta, $color in $alertas {
+			// @debug #{blanquear($color, 90%)};
+			&--#{$alerta} {
+				// @debug $color;
+				background: blanquear($color, 80%);
+				color: map-deep-get($_CONFIG, 'componentes', 'alertas', 'texto');
+				&#{$t}--hc {
+					background: #{$color};
+					color: blanco(1);
+				}
+			}
+		}
+
+		&__contenedor {
+			@include posicion(fixed, null, 1.5rem, null, 1.5rem);
+			z-index: 99999;
+			#{$t} {
+				&--hidden {
+					opacity: 0;
+				}
+			}
+
+			&--fixed-top {
+				top: 0;
+				#{$t}--hidden {
+					transform: translateY(-20px);
+				}
+			}
+	
+			&--fixed-bottom {
+				bottom: 0;
+				#{$t}--hidden {
+					transform: translateY(20px);
+				}
+			}
+		}
+
+		&--fixed-top,
+		&--fixed-bottom {
+			@include posicion(fixed, null, 1.5rem, null, 1.5rem);
+			z-index: 99999;
+		}
+
+		&--fixed-top {
+			top: 0;
+			#{$t}--hidden {
+				transform: translateY(-20px);
+			}
+		}
+
+		&--fixed-bottom {
+			bottom: 0;
+			#{$t}--hidden {
+				transform: translateY(20px);
+			}
+		}
+
+		&--global {
+			padding: 30px;
+			margin: 1.5rem 0;
+			@include transicion;
+		}
+
+
+		&__titulo {
+			font-size: em(24, 16);
+			display: block;
+			margin-bottom: 5px;
+			font-weight: normal;
+		}
+
+		&__texto {
+			@include break(md-mw) {
+				text-align: center;
+			}
+		}
+
+		&__contenido {
+			display: flex;
+			align-items: center;
+			padding-right: 15px;
+
+			@include break(md-mw) {
+				flex-direction: column;
+				padding-right: 0;
+			}
+		}
+
+		&__close {
+			cursor: pointer;
+			font-size: 1.8rem;
+			display: inline-block;
+			line-height: 1.8rem;
+			@include transicion;
+			@include posicion(absolute, 1rem, 1rem, null, null);
+			&:before {
+				vertical-align: middle;
+			}
+			@include hover {
+				&:hover {
+					transform: rotate(90deg);
+					transform-origin: center;
+				}
+			}
+
+			&:before {
+				display: block;
+			}
+		}
+
+		a:not(.btn) {
+			font-size: 1em;
+			color: inherit;
+			text-decoration: underline;
+
+			&:after {
+				display: none;
+			}
+		}
+
+		@if map-deep-get($_CONFIG, 'componentes', 'tabs', 'tipo', 'navegador'){
+			@include posicion(fixed, null, 10%, 30px, 10%);
+			padding: 15px;
+			background: blanco(1);
+			border: 1px solid $grisD;
+			z-index: 9999;
+			display: none;
+			&__titulo{
+				margin-bottom: .25em;
+			}
+			&__parrafo{
+				margin-bottom: 0
+			}
+			.no-flexbox &{
+				display: block;
+			}
+		}
+
+	}
+}

@@ -1,0 +1,531 @@
+@if map-deep-get($_CONFIG, 'componentes', 'botones', 'activo') {
+  /* Botones */
+  %btn {
+    background: $default;
+    color: blanco(1);
+    border: 1px solid $default;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: normal;
+    line-height: 1;
+    padding: 1.5rem 3rem;
+    text-align: center;
+    text-decoration: none;
+    @include transicion;
+    user-select: none;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    @supports (display: flex){
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @if map-deep-get($_CONFIG, 'ui', 'radios', 'activo') {
+      border-radius: map-deep-get($_CONFIG, 'ui', 'radios', 'valor');
+    }
+    @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+      box-shadow:
+      map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'y')
+      map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'x')
+      map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'blur')
+      map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'spread')
+      rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'opacity'));
+    }
+    &[disabled],
+    &.disabled {
+      cursor: not-allowed;
+      opacity: .5;
+      pointer-events: none;
+      outline: 0;
+    }
+    &:after {
+      display: none;
+    }
+    &:focus {
+      outline: 0;
+      &[disabled],
+      &.disabled {
+        box-shadow: none;
+      }
+    }
+    @media (max-width:54.3rem) {
+      padding: 1.2rem 2rem;
+    }
+    input {
+      @include posicion(fixed,-200rem,-200rem,null,null);
+    }
+  }
+
+  $btns: ();
+  
+  @if map-deep-get($_CONFIG, 'componentes', 'botones', 'tipo') {
+    @if map-deep-get($_CONFIG, 'componentes', 'botones', 'tipo', 'primario') {
+      $_primario: ('primario': $primario);
+      $btns: map-merge($btns, $_primario);
+    }
+    @if map-deep-get($_CONFIG, 'componentes', 'botones', 'tipo', 'secundario') {
+      $_secundario: ('secundario': $secundario);
+      $btns: map-merge($btns, $_secundario);
+    }
+    @if map-deep-get($_CONFIG, 'componentes', 'botones', 'tipo', 'terciario') {
+      $_terciario: ('terciario': $terciario);
+      $btns: map-merge($btns, $_terciario);
+    }
+  }
+  @if map-deep-get($_CONFIG, 'componentes', 'botones', 'acciones', 'activo') {
+    @if map-deep-get($_CONFIG, 'componentes', 'botones', 'acciones', 'tipo', 'peligro') {
+      $_peligro: ('peligro': $error);
+      $btns: map-merge($btns, $_peligro);
+    }
+    @if map-deep-get($_CONFIG, 'componentes', 'botones', 'acciones', 'tipo', 'exito') {
+      $_exito: ('exito': $exito);
+      $btns: map-merge($btns, $_exito);
+    }
+  }
+
+  // @debug $btns;
+
+  .btn {
+    $b: btn;
+    @extend %btn;
+    @include hover {
+      &:hover {
+        @include estado-btn(blanquear($default, 10%), blanquear($default, 10%));
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow:
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'x')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'y')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'blur')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'spread')
+          rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'opacity'));
+        } @else {
+          transform: translateY(-.2rem) scaleX(.95);
+        }
+        .no-csstransforms & {
+          text-decoration: none;
+        }
+      }
+    }
+    &:focus {
+      @include estado-btn(blanquear($default, 5%), blanquear($default, 5%));
+      @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+        box-shadow:
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'x')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'y')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'blur')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'spread')
+        rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'opacity')),
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'x')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'y')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'blur')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'spread')
+        rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'opacity'));
+      } @else {
+        transform: translateY(-.2rem) scaleX(.95);
+      }
+      // border: 1px dashed ennegrecer($default, 30%);
+    }
+    &:active,
+    &:visited {
+      @include estado-btn(ennegrecer($default, 10%), ennegrecer($default, 10%));
+      @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+        box-shadow:
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'x')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'y')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'blur')
+        map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'spread')
+        rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'opacity'));
+      }
+    }
+    &[disabled],
+    .disabled {
+      &:hover {
+        @include estado-btn($default, $default);
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow: none;
+        }
+      }
+    }
+    &__ripple {
+      position: absolute;
+      display: block;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: rgba(blanquear($default, 50%), .4);
+      animation: ripple .5s 1;
+      pointer-events: none;
+      opacity: 0;
+    }
+    &--fantasma {
+      @include estado-btn(transparent, blanco(1));
+      @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+        box-shadow: none;
+      }
+      @include hover {
+        &:hover {
+          @include estado-btn(rgba(blanco(1), .05), null);
+          @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+            box-shadow: none;
+          }
+        }
+      }
+      &:focus {
+        background: rgba(blanco(1), .05);
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow:
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'x')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'y')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'blur')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'spread')
+          rgba(blanco(1), map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'opacity'));
+        }
+      }
+      &:active,
+      &:visited {
+        @include estado-btn(rgba(blanco(1), .15), null);
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow: none;
+        }
+      }
+    } // Boton borde
+    &--borde {
+      @include estado-btn(transparent, null);
+      color: $default;
+      @include hover {
+        &:hover {
+          background: rgba($default, .05);
+          @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+            box-shadow: none;
+          }
+        }
+      }
+      &:focus {
+        background: transparent;
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow:
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'x')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'y')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'blur')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'spread')
+          rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'opacity'));
+        }
+      }
+      &:active,
+      &:visited{
+        //@include estado-btn(ennegrecer($default, 10%), ennegrecer($default, 10%));
+        background: rgba($default, .15);
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow:
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'x')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'y')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'blur')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'spread')
+          rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'opacity'));
+        }
+      }
+    }
+    &--link {
+      color: $default;
+      background: transparent;
+      border-color: transparent;
+      @include hover {
+        &:hover {
+          background: rgba($default, .05);
+          border-color: transparent;
+          @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+            box-shadow: none;
+          }
+          .no-rgba & {
+            text-decoration: underline;
+            background: transparent;
+          }
+        }
+      }
+      &:focus {
+        background: rgba($default, .05);
+        border-color: transparent;
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow:
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'x')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'y')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'blur')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'spread')
+          rgba($default, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'opacity'));
+        }
+      }
+      &:active,
+      &:visited {
+        background: rgba(gris(70), .1);
+        border-color: transparent;
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow: none;
+        }
+      }
+    }
+    
+    @each $btn,
+    $var in $btns {
+      &--#{$btn} {
+        @include estado-btn($var, $var);
+        outline-color: transparent;
+        // box-shadow: 0 0 0 rgba($var, .5);
+        @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+          box-shadow:
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'x')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'y')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'blur')
+          map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'spread')
+          rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'default', 'opacity'));
+        }
+        @if(luminance($var) > 0.5) {
+          color: negro(1);
+        }
+        @else {
+          color: blanco(1);
+        }
+        @include hover {
+          &:hover {
+            @include estado-btn(blanquear($var, 10%), blanquear($var, 10%));
+            // box-shadow: 0 5px 10px rgba($var, .3);
+            @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+              box-shadow:
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'x')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'y')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'blur')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'spread')
+              rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'opacity'));
+            }
+          }
+        }
+        &:focus {
+          @include estado-btn(blanquear($var, 5%), blanquear($var, 5%));
+          @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+            box-shadow:
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'x')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'y')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'blur')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'spread')
+            rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'hover', 'opacity') + .3),
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'x')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'y')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'blur')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'spread')
+            rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'opacity') + .3);
+          }
+        }
+        &:active,
+        &:visited {
+          @include estado-btn(ennegrecer($var, 10%), ennegrecer($var, 10%));
+          @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+            box-shadow:
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'x')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'y')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'blur')
+            map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'spread')
+            rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'opacity'));
+          }
+        }
+        &[disabled],
+        .disabled {
+          &:hover {
+            @include estado-btn($var, $var);
+            box-shadow: none;
+          }
+        }
+        .btn__ripple {
+          background: rgba(blanquear($var, 50%), .4);
+        }
+        &.btn--borde {
+          color: $var;
+          @include estado-btn(transparent, null);
+          @include hover {
+            &:hover {
+              // @if(luminance($var) > 0.5) {
+              // 	color: negro(1);
+              // } @else {
+              // 	color: blanco(1);
+              // }
+              background: rgba($var, .05);
+              @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+                box-shadow: none;
+              }
+              //@include estado-btn(blanquear($var, 10%), null);
+            }
+          }
+          &:focus {
+            @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+              box-shadow:
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'x')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'y')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'blur')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'spread')
+              rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'opacity') + .3);
+            }
+          }
+          &:active,
+          &:visited {
+            // background: ennegrecer($var, 10%);
+            // border-color: ennegrecer($var, 10%);
+            // box-shadow: 0 2px 5px rgba($var, .3);
+            background: rgba($var, .15);
+            @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+              box-shadow:
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'x')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'y')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'blur')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'spread')
+              rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'active', 'opacity'));
+            }
+          }
+        }
+        &.btn--link {
+          color: $var;
+          background: transparent;
+          border: transparent;
+          @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+            box-shadow: none;
+          }
+          @include hover {
+            &:hover {
+              background: rgba($var, .05);
+              @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+                box-shadow: none;
+              }
+              .no-rgba & {
+                text-decoration: underline;
+                background: transparent;
+              }
+            }
+          }
+          &:focus {
+            background: rgba($var, .05);
+            @if map-deep-get($_CONFIG, 'ui', 'sombras', 'activo') {
+              box-shadow:
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'x')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'y')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'blur')
+              map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'spread')
+              rgba($var, map-deep-get($_CONFIG, 'ui', 'sombras', 'tipo', 'focus', 'opacity') + .3);
+            }
+          }
+          &:active,
+          &:visited {
+            background: rgba($var, .1);
+          }
+        }
+      }
+    }
+    // Boton redondo
+    &--redondo {
+      border-radius: 30px;
+      &:focus {
+        border-style: dashed;
+      }
+    }
+    // Boton circulo
+    &--circulo {
+      width: 5rem;
+      height: 5rem;
+      max-width: 5rem;
+      border-radius: 50%;
+      text-align: center;
+      padding: 0;
+      &:before {
+        font-size: 2rem;
+      }
+      &:focus {
+        border-style: dashed;
+      }
+    } 
+    // Boton con icono
+    &--icono {
+      &:before {
+        margin: 0 .5rem;
+        font-size: 2rem;
+        line-height: .75;
+      }
+    } 
+    // Boton block
+    &--block-xs {
+      width: 100%;
+    } // Boton ancho auto
+    &--inline-xs {
+      width: auto;
+    } // Boton big
+    &--big {
+      padding: 1.8rem 3.6rem;
+    } // Boton small
+    &--small {
+      padding: 1rem 2rem;
+    } // Boton x-small
+    &--xsmall {
+      padding: .4rem 1.5rem;
+      font-size: 1.4rem;
+    } // Boton ancho
+    &--ancho {
+      padding: 1.2rem 5rem;
+    }
+    .no-mediaqueries & {
+      &--block {
+        width: 100%;
+      }
+      &--inline {
+        width: auto;
+      }
+    }
+    &__grupo {
+      .btn {
+        margin-bottom: 1em;
+        margin-right: .5em;
+        &:last-child {
+          margin-right: 0;
+        }
+        @media (min-width:120rem) {
+          &--block-lg {
+            margin-right: 0;
+          }
+        }
+        @each $slug,
+        $tamanos in map-deep-get($_CONFIG, 'layout', 'medias') {
+          // @debug map-deep-get($_CONFIG, 'layout', 'medias');
+          @media #{$tamanos} {
+            &--block-#{$slug} {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  @each $slug,
+  $w,
+  $mw in map-deep-get($_CONFIG, 'layout', 'cols', 'breaks') {
+    @media (min-width: #{$w}px) {
+      .btn--block-#{$slug} {
+        width: 100%;
+      }
+      .btn--inline-#{$slug} {
+        width: auto;
+      }
+    }
+  }
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0;
+  } 
+  1% {
+    opacity: 1;
+    transform: scale(1);
+  } 
+  100% {
+    opacity: 0;
+    transform: scale(10);
+  }
+}

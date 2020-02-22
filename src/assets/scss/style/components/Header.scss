@@ -1,0 +1,4 @@
+@import '../style';
+.header {
+  @include posicion(fixed, 0,0,null,0);
+}

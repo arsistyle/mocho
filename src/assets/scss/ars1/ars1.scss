@@ -1,0 +1,41 @@
+/*!
+* ¡ATENCIÓN! Hoja de estilos generada con SASS, no modificar.
+*/
+
+@import "CONFIG";
+
+
+// Auxiliares
+@import "auxiliares/functions";
+@import "auxiliares/variables";
+@import "auxiliares/mediaqueries";
+@import "auxiliares/mixins";
+
+// Base
+@import "base/debug";
+@import "base/general";
+@import "base/tipografias";
+@import "base/alineaciones";
+
+// Externos
+@import "externos/normalize";
+@import "externos/fancybox";
+@import "externos/owl";
+
+// Estructura
+@import "estructura/columnas";
+
+// Componentes
+// @import "componentes/principios";
+@import "componentes/botones";
+@import "componentes/badges";
+// @import "componentes/forms";
+@import "componentes/tablas";
+@import "componentes/alertas";
+@import "componentes/callouts";
+@import "componentes/tabs";
+@import "componentes/accordion";
+// @import "componentes/preloader";
+// @import "componentes/languages-badges";
+// @import "componentes/codigo";
+@import "componentes/galeria";
