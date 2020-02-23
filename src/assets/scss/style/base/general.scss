@@ -1,0 +1,21 @@
+:root {
+  --header: 100px;
+  --logo: 180px;
+  @include break(md-mw) {
+    --header: 45px;
+    --logo: 45px;
+  }
+}
+
+main {
+  padding-top: var(--header);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

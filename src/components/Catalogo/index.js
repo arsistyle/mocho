@@ -11,7 +11,6 @@ import '../../assets/scss/style/components/Catalogo.scss';
 const Catalogo = props => {
   return (
     <section className="catalogo container-fluid">
-      <h1>Catálogo</h1>
       <div className="row">
         {Listado.map((item, i) => (
           <LazyLoad key={i}>

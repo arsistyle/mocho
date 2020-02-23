@@ -8,15 +8,16 @@ const CatalogoItem = props => {
   image.onload = () => {
     setImage(true);
   };
+  
 
   return (
-    <div className="col-xs-12 col-md-6 col-lg-4 col-xl-3">
+    <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <div className="catalogo__item">
         <div className="catalogo__image">
           {loading ? (
             <img src={props.image} alt={props.name} />
           ) : (
-            <span className="catalogo__preloader">Cargando</span>
+            <div className="catalogo__preloader"><span></span></div>
           )}
         </div>
         <div className="catalogo__info">

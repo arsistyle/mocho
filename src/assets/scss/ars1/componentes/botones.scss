@@ -52,9 +52,6 @@
         box-shadow: none;
       }
     }
-    @media (max-width:54.3rem) {
-      padding: 1.2rem 2rem;
-    }
     input {
       @include posicion(fixed,-200rem,-200rem,null,null);
     }

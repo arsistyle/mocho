@@ -8,5 +8,12 @@ export const Global = {
     url: `https://wa.me/56981902681?text=Hola gente de Mocho, necesito hacer una consulta por unas calcetas de su catálogo online.`,
     icon: IoLogoWhatsapp,
     text: 'Contacto'
-  }
+  },
+  banner: {
+    title: 'Encuentra lo mejor en calcetas',
+    btn: {
+      title: 'Explorar',
+      url: '#catalogo'
+    }
+  }  
 };
