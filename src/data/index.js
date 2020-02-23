@@ -5,7 +5,7 @@ export const Global = {
   author: 'Arsi Larrondo',
   job: 'Diseñador Front-End',
   wsp: {
-    url: `https://wa.me/56981902681?text=Hola%2C%20necesito%20hacer%20una%20consulta%20por%20unas%20calcetas%20del%20catalogo%20online%20Mocho`,
+    url: `https://wa.me/56981902681?text=Hola gente de Mocho, necesito hacer una consulta por unas calcetas de su catálogo online.`,
     icon: IoLogoWhatsapp,
     text: 'Contacto'
   }

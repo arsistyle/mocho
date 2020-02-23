@@ -50,6 +50,9 @@ $terciario700 : lighten($terciario, 10%);
 $terciario800 : lighten($terciario, 15%);
 $terciario900 : lighten($terciario, 20%);
 
+// Redes sociales
+$whatsapp : map-deep-get($_CONFIG, 'ui', 'colores', 'rrss', 'whatsapp');
+
 
 //-- Colores generales
 $color-parrafos: map-deep-get($_CONFIG, 'ui', 'colores', 'textos', 'parrafos');

@@ -49,6 +49,12 @@ $_CONFIG: (
           exito: true
         ),
       ),
+      rrss: (
+        activo: true,
+        tipo: (
+          whatsapp: true
+        )
+      ),
       formas: true,
       fantasmas: true,
       ripple: true,
@@ -239,11 +245,12 @@ $_CONFIG: (
         aviso: #f7ae18,
         info: #04a9f7,
       ),
-      redes-sociales: (
+      rrss: (
         facebook: #3f51b5,
         twitter: #29b6f6,
         linkedin: #1e88e5,
-        google: #f44336
+        google: #f44336,
+        whatsapp: #01e675
       ),
       textos: (
         titulos: #333,
