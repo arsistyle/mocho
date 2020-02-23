@@ -21,6 +21,8 @@ const CatalogoItem = props => {
           )}
         </div>
         <div className="catalogo__info">
+          <h3 className="catalogo__title">{props.name}</h3>
+          <h4 className="catalogo__valor color--primario">{props.valor}</h4>
           {props.state ? (
             <a
               href={props.wsp}

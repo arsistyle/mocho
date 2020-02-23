@@ -19,6 +19,7 @@ const Catalogo = props => {
               wsp={item.wsp}
               name={item.name}
               state={item.state}
+              valor={item.valor}
             />
           </LazyLoad>
         ))}

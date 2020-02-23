@@ -4,6 +4,15 @@
   &__item {
     position: relative;
     margin-bottom: 3rem;
+    box-shadow: 0 0 1rem rgba(negro(1), .1);
+    overflow: hidden;
+    @include transicion;
+    @if map-deep-get($_CONFIG, 'ui', 'radios', 'activo') {
+      border-radius: map-deep-get($_CONFIG, 'ui', 'radios', 'valor');
+    }
+    &:hover {
+      box-shadow: 0 0 2rem rgba(negro(1), .15), 0 0 .5rem rgba(negro(1), .1) ;
+    }
     .alerta {
       margin: 0;
     }
@@ -40,8 +49,22 @@
     }
   }
   &__info {
+    padding: 3rem;
+    > :first-child {
+      margin-top: 0;
+    }
+    > :last-child {
+      margin-bottom: 0;
+    }
     svg {
       margin-left: 1rem;
     }
+  }
+  &__title {
+    margin-bottom: 1.5rem;
+  }
+  &__valor {
+    margin-top: 0;
+    margin-bottom: 3rem;
   }
 }
