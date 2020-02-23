@@ -3,6 +3,7 @@
   $t: &;
   &__item {
     position: relative;
+    margin-bottom: 3rem;
     .alerta {
       margin: 0;
     }
@@ -22,23 +23,4 @@
       margin-left: 1rem;
     }
   }
-  // @include hover() {
-  //   #{$t}__item {
-  //     #{$t}__info {
-  //       @include posicion(absolute, null, 0, 0, 0);
-  //       padding: 3rem;
-  //       @include transicion;
-  //       opacity: 0;
-  //       visibility: hidden;
-  //       transform: translateY(10px);
-  //     }
-  //     &:hover {
-  //       #{$t}__info {
-  //         opacity: 1;
-  //         visibility: visible;
-  //         transform: translateY(0);
-  //       }
-  //     }
-  //   }
-  // }
 }
