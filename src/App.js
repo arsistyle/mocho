@@ -13,12 +13,15 @@ import Catalogo from './components/Catalogo';
 /** ASSETS **/
 // images
 import Logo from './assets/img/logo.svg';
-import LogoMobile from './assets/img/logo-mobile.svg';
+import ImageRRSS from './assets/img/bg.jpg';
 // Styles
 import './assets/scss/ars1/ars1.scss';
 
 function App() {
   // let width = useCurrentWitdh();
+
+  let ogImage = document.querySelector('[property="og:image"]');
+  ogImage.setAttribute('content', ImageRRSS);
   return (
     <main className="App">
       <Header
