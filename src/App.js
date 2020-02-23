@@ -18,10 +18,6 @@ import ImageRRSS from './assets/img/bg.jpg';
 import './assets/scss/ars1/ars1.scss';
 
 function App() {
-  // let width = useCurrentWitdh();
-
-  let ogImage = document.querySelector('[property="og:image"]');
-  ogImage.setAttribute('content', ImageRRSS);
   return (
     <main className="App">
       <Header
