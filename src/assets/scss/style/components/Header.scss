@@ -6,8 +6,12 @@
   align-items: center;
   padding: 0 1.5rem;
   z-index: 99;
-  background: blanco(1);
+  // background: blanco(1);
   height: var(--header);
+  @include transicion;
+  &--active {
+    background: blanco(1);
+  }
   &__item {
     &--logo {
       width: var(--logo);

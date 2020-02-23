@@ -9,11 +9,11 @@ export const Global = {
     icon: IoLogoWhatsapp,
     text: 'Contacto'
   },
-  banner: {
+  hero: {
     title: 'Encuentra lo mejor en calcetas',
     btn: {
       title: 'Explorar',
-      url: '#catalogo'
+      url: 'catalogo'
     }
   }  
 };

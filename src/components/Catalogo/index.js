@@ -10,7 +10,7 @@ import '../../assets/scss/style/components/Catalogo.scss';
 
 const Catalogo = props => {
   return (
-    <section className="catalogo container-fluid">
+    <section className="catalogo container-fluid" id="catalogo">
       <div className="row">
         {Listado.map((item, i) => (
           <LazyLoad key={i}>

@@ -1,9 +1,14 @@
+@import '../style';
 .hero {
-  height: calc(100vh - var(--header));
+  height: 100vh;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
+  margin-bottom: 5rem;
+  @include break(md-mw) {
+    align-items: flex-start;
+  }
   &__bg {
     @include posicion(absolute,0,0,0,0);
     opacity: .8;
@@ -15,28 +20,38 @@
     object-fit: cover;
     position: relative;
     z-index: 1;
-    background-size: cover;
-    background-attachment: fixed;
-    // opacity: .8;
+    // background-size: cover;
+    // background-attachment: fixed;
+    @include break(md-mw) {
+      object-position: center right;
+    }
   }
   &__svg {
     @include posicion(absolute,0,0,null,0);
-    width: 100%;
-    height: 100%;
+    width: 150%;
+    height: 150%;
     object-fit: cover;
     z-index: 2;
+    @include break(md-mw) {
+      width: 100%;
+      height: 100%;
+    }
   }
   &__container {
     position: relative;
     width: 100%;
     max-width: var(--maxwidth);
-    margin: auto;
+    margin: 0 auto;
     z-index: 4;
     padding: 0 3rem;
+    @include break(md-mw) {
+      padding: 10rem 1.5rem 0;
+    }
   }
   &__title {
     max-width: 750px;
     margin-top: 0;
     text-transform: uppercase;
+    font-weight: 800;
   }
 }
