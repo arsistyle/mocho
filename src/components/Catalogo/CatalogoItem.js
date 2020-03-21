@@ -21,7 +21,7 @@ const CatalogoItem = props => {
             <h4 className='catalogo__valor color--primario'>{props.valor}</h4>
             {props.state ? (
               <a
-                href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name}*`}
+                href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name}* ${encodeURIComponent(image.src)}`}
                 className='catalogo__wsp btn btn--whatsapp btn--block-xs'
                 target='_blank'
                 rel='noopener noreferrer'
