@@ -14,13 +14,18 @@ const CatalogoItem = props => {
       {loading ? (
         <div className='catalogo__item'>
           <div className='catalogo__image'>
-            <img src={props.image} alt={props.name} />
+            <img src={`${image.src}`} alt={props.name} />
           </div>
           <div className='catalogo__info'>
             <h3 className='catalogo__title'>{props.name}</h3>
             <h4 className='catalogo__valor color--primario'>{props.valor}</h4>
             {props.state ? (
-              <a href={props.wsp} className='catalogo__wsp btn btn--whatsapp btn--block-xs' target='_blank' rel='noopener noreferrer'>
+              <a
+                href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name}*`}
+                className='catalogo__wsp btn btn--whatsapp btn--block-xs'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <span className='catalogo__wsp__name'>Lo quiero</span>
                 <IoLogoWhatsapp />
               </a>
@@ -34,7 +39,8 @@ const CatalogoItem = props => {
           <div className='catalogo__image placeholder--child'></div>
           <div className='catalogo__info'>
             <div className='catalogo__title placeholder'>
-              <span className="placeholder--child"></span><span className="placeholder--child"></span>
+              <span className='placeholder--child'></span>
+              <span className='placeholder--child'></span>
             </div>
             <div className='catalogo__valor placeholder--child'></div>
           </div>

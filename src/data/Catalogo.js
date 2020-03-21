@@ -1,21 +1,33 @@
-const importAll = r => r.keys().map(r);
+function importAll(r) {
+  let images = {};
+  r.keys().map(x => images[x.replace('./', '').replace(/\.(jpeg|jpg|JPEG|JPG)$/, '')] = r(x));
+  return images;
+}
 const images = importAll(require.context('../assets/img/catalogo', false, /\.(jpeg|jpg|JPEG|JPG)$/));
 
-export const Listado = [
+const Listado = [
   {
-    id: 0,
-    name: 'Superman Clásico',
-    wsp: `https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *Superman Clásico*.`,
+    name: 'Batman',
     state: true,
-    image: images[0],
-    valor: '$2.500'
+    valor: '$4.500',
+    image: images['batman']
   },
   {
-    id: 1,
-    name: 'Donkey Kong',
-    wsp: `https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *Donkey Kong*.`,
-    state: false,
-    image: images[1],
-    valor: '$2.500'
-  }
-]
+    name: 'Batman Cartoon',
+    state: true,
+    valor: '$3.000',
+    image: images['batman-cartoon']
+  },
+  {
+    name: 'Batman Clásico',
+    state: true,
+    valor: '$4.500',
+    image: images['batman-clasico']
+  },
+];
+
+// for(let i in images) {
+//   if (images[i]) Listado[i].image = images[i];
+// }
+
+export default Listado;

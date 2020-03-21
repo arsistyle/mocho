@@ -1,14 +1,17 @@
 :root {
   --header: 100px;
   --logo: 180px;
+  --frame: 1280px;
   @include break(md-mw) {
     --header: 45px;
     --logo: 100px;
   }
 }
 
-main {
-  // padding-top: var(--header);
+.frame {
+  width: 100%;
+  max-width: var(--frame);
+  margin: auto;
 }
 
 @keyframes rotate {
