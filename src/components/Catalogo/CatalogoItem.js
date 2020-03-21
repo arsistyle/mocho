@@ -9,6 +9,8 @@ const CatalogoItem = props => {
     setImage(true);
   };
 
+  let extraData = props.extraData ? `(_Extra: ${props.extraData}_)` : '';
+
   return (
     <div className='col-xs-12 col-sm-6 col-md-4 col-lg-3'>
       {loading ? (
@@ -21,7 +23,7 @@ const CatalogoItem = props => {
             <h4 className='catalogo__valor color--primario'>{props.valor}</h4>
             {props.state ? (
               <a
-                href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name}* ${encodeURIComponent(image.src)}`}
+                href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name}*‏ ‏${extraData} ${image.src}`}
                 className='catalogo__wsp btn btn--whatsapp btn--block-xs'
                 target='_blank'
                 rel='noopener noreferrer'

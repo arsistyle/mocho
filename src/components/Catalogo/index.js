@@ -15,7 +15,7 @@ const Catalogo = props => {
         <div className='row'>
           {Listado.map((item, i) => (
             <LazyLoad key={i}>
-              <CatalogoItem image={item.image} wsp={item.wsp} name={item.name} state={item.state} valor={item.valor} />
+              <CatalogoItem image={item.image} wsp={item.wsp} name={item.name} state={item.state} valor={item.valor} extraData={item.extraData} />
             </LazyLoad>
           ))}
         </div>

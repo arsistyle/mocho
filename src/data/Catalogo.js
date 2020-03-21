@@ -24,6 +24,13 @@ const Listado = [
     valor: '$4.500',
     image: images['batman-clasico']
   },
+  {
+    name: 'Escandalosos - Pardo',
+    state: true,
+    valor: '$3.500',
+    image: images['bears-pardo-cana'],
+    extraData: 'Calcetas con caña'
+  }
 ];
 
 // for(let i in images) {
