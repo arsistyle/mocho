@@ -22,11 +22,13 @@ const Hero = props => {
   image.onload = () => {
     setImage(true);
   };
+  let bg = width < 768 ? BgMobile : Bg;
+  let m = width < 768 ? MMobile : M;
   return loading ? (
     <section className='hero'>
       <div className='hero__bg'>
-        <img src={width < 768 ? BgMobile : Bg} alt='' className='hero__img' />
-        <img src={width < 768 ? MMobile : M} alt='' className='hero__svg' />
+        <img src={bg} alt='' className='hero__img' />
+        <img src={m} alt='' className='hero__svg' />
       </div>
       <div className='hero__container'>
         <h1 className='hero__title titulo-hero'>{props.title}</h1>
