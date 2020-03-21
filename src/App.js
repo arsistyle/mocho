@@ -13,7 +13,7 @@ import Catalogo from './components/Catalogo';
 /** ASSETS **/
 // images
 import Logo from './assets/img/logo.svg';
-import ImageRRSS from './assets/img/bg.jpg';
+// import ImageRRSS from './assets/img/bg.jpg';
 // Styles
 import './assets/scss/ars1/ars1.scss';
 
