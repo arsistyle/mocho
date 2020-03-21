@@ -178,7 +178,7 @@ const Listado = [
     name: 'Spider-Man',
     state: true,
     valor: '$2.500',
-    image: images['spiderman'],
+    image: images['spiderman-corto'],
     extraData: 'Calcetas cortas'
   },
   {
