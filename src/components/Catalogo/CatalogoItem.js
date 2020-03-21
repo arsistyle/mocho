@@ -20,11 +20,11 @@ const CatalogoItem = props => {
           </div>
           <div className='catalogo__info'>
             <h3 className='catalogo__title'>{props.name}</h3>
-            <h4 className='catalogo__valor color--primario'>{props.valor}</h4>
+            <h4 className='catalogo__valor color--secundario'>{props.valor}</h4>
             {props.state ? (
               <a
                 href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name}*‏ ‏${extraData} ${image.src}`}
-                className='catalogo__wsp btn btn--whatsapp btn--block-xs'
+                className='catalogo__wsp btn btn--primario btn--block-xs'
                 target='_blank'
                 rel='noopener noreferrer'
               >
