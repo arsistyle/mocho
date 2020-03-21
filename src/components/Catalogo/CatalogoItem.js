@@ -8,38 +8,38 @@ const CatalogoItem = props => {
   image.onload = () => {
     setImage(true);
   };
-  
 
   return (
-    <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <div className="catalogo__item">
-        <div className="catalogo__image">
-          {loading ? (
+    <div className='col-xs-12 col-sm-6 col-md-4 col-lg-3'>
+      {loading ? (
+        <div className='catalogo__item'>
+          <div className='catalogo__image'>
             <img src={props.image} alt={props.name} />
-          ) : (
-            <div className="catalogo__preloader"><span></span></div>
-          )}
+          </div>
+          <div className='catalogo__info'>
+            <h3 className='catalogo__title'>{props.name}</h3>
+            <h4 className='catalogo__valor color--primario'>{props.valor}</h4>
+            {props.state ? (
+              <a href={props.wsp} className='catalogo__wsp btn btn--whatsapp btn--block-xs' target='_blank' rel='noopener noreferrer'>
+                <span className='catalogo__wsp__name'>Lo quiero</span>
+                <IoLogoWhatsapp />
+              </a>
+            ) : (
+              <div className='alerta alerta--small alerta--aviso text-align-center-xs'>Sin Stock</div>
+            )}
+          </div>
         </div>
-        <div className="catalogo__info">
-          <h3 className="catalogo__title">{props.name}</h3>
-          <h4 className="catalogo__valor color--primario">{props.valor}</h4>
-          {props.state ? (
-            <a
-              href={props.wsp}
-              className="catalogo__wsp btn btn--whatsapp btn--block-xs"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="catalogo__wsp__name">Lo quiero</span>
-              <IoLogoWhatsapp />
-            </a>
-          ) : (
-            <div className="alerta alerta--small alerta--aviso text-align-center-xs">
-              Sin Stock
+      ) : (
+        <div className='catalogo__item placeholder'>
+          <div className='catalogo__image placeholder--child'></div>
+          <div className='catalogo__info'>
+            <div className='catalogo__title placeholder'>
+              <span className="placeholder--child"></span><span className="placeholder--child"></span>
             </div>
-          )}
+            <div className='catalogo__valor placeholder--child'></div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
