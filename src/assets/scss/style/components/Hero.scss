@@ -37,7 +37,7 @@
     z-index: 2;
     @include break(md-mw) {
       width: 100%;
-      height: 100%;
+      height: 110%;
     }
   }
   &__container {
@@ -62,11 +62,14 @@
       span {
         display: block;
         width: 100%;
-        height: 80px;
+        height: 8rem;
         margin-bottom: 1rem;
         background: rgba(gris(70), .4);
         &:last-child {
           width: 70%;
+        }
+        @include break(md-mw) {
+          height: 4rem;
         }
       }
     }
@@ -74,8 +77,12 @@
   &__btn {
     &.placeholder--child {
       width: 200px;
-      height: 70px;
+      height: 7rem;
       background: rgba(gris(70), .4);
+      @include break(md-mw) {
+        width: 150px;
+        height: 5rem;
+      }
     }
   }
 }

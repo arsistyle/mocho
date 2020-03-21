@@ -6,7 +6,7 @@ const CatalogoItem = props => {
   const image = new Image();
   image.src = props.image;
   image.onload = () => {
-    setImage(true);
+    // setImage(true);
   };
 
   return (
