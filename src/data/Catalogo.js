@@ -142,7 +142,7 @@ const Listado = [
   {
     name: 'Disney - Stich',
     state: true,
-    valor: '$2.500',
+    valor: '$3.500',
     image: images['disney-stitch-cana-pattern'],
     extraData: 'Calcetas caña, pattern',
   },
@@ -163,7 +163,7 @@ const Listado = [
   {
     name: 'Hulk',
     state: true,
-    valor: '$4.500',
+    valor: '$3.500',
     image: images['hulk-cartoon'],
     extraData: 'Calcetas largas, cartoon',
   },
@@ -177,7 +177,7 @@ const Listado = [
   {
     name: 'Iron Man',
     state: true,
-    valor: '$2.500',
+    valor: '$3.500',
     image: images['iron-man-cartoon'],
     extraData: 'Calcetas largas, cartoon',
   },
@@ -198,12 +198,12 @@ const Listado = [
   {
     name: 'Loki',
     state: true,
-    valor: '$2.500',
+    valor: '$3.500',
     image: images['loki-cartoon'],
     extraData: 'Calcetas largas, cartoon',
   },
   {
-    name: 'Luigi & hongos',
+    name: 'Luigi & Hongos',
     state: true,
     valor: '$4.500',
     image: images['luigi-hongo'],
@@ -296,7 +296,7 @@ const Listado = [
   {
     name: 'Superman',
     state: true,
-    valor: '$2.500',
+    valor: '$3.500',
     image: images['superman-cartoon'],
     extraData: 'Calcetas largas, cartoon',
   },
@@ -317,7 +317,7 @@ const Listado = [
   {
     name: 'Thor',
     state: true,
-    valor: '$3.000',
+    valor: '$3.500',
     image: images['thor-cartoon'],
     extraData: 'Calcetas largas, cartoon',
   },
