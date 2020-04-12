@@ -1,4 +1,28 @@
-//Caching schema
-<FilesMatch "\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$">
-Header set Cache-Control "public, max-age=1928448000"
-</FilesMatch>
+<Files .htaccess>
+	Order Allow,Deny
+	Deny from all
+</Files>
+
+SetEnvIfNoCase User-Agent "^libwww-perl*" block_bad_bots
+Deny from env=block_bad_bots
+
+Options All -multiviews -Indexes +SymLinksIfOwnerMatch
+AddDefaultCharset utf-8
+DefaultLanguage es
+ServerSignature Off
+Header unset ETag
+FileETag None
+
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript text/xml application/javascript application/x-javascript application/ecmascript application/rss+xml application/xml
+	<IfModule mod_headers.c>
+		Header append Vary User-Agent
+	</IfModule>
+</IfModule>
+
+<ifmodule mod_expires.c>
+	<filesmatch "\.(jpg|gif|png|css|ico|js|woff|woff2|eot|svg|ttf)$">
+	ExpiresActive on
+	ExpiresDefault "access plus 1 year"
+	</filesmatch>
+</ifmodule>
