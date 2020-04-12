@@ -377,13 +377,6 @@ const Listado = [
     image: images['zebras'],
     extraData: 'Calcetas largas, pattern',
   },
-  {
-    name: 'Prueba',
-    state: true,
-    valor: '$3.000',
-    image: images['prueba'],
-    extraData: 'Calcetas largas, pattern',
-  },
 ];
 
 export default Listado;
