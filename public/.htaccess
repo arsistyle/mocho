@@ -3,6 +3,16 @@
 	Deny from all
 </Files>
 
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+
 SetEnvIfNoCase User-Agent "^libwww-perl*" block_bad_bots
 Deny from env=block_bad_bots
 
