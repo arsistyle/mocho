@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+// import Img from 'react-cool-img';
 import { IoLogoWhatsapp } from 'react-icons/io';
+const imageError = require('../../assets/img/catalogo-error.svg');
 
 const CatalogoItem = props => {
-  const [loading, setImage] = useState(false);
+  const [loading, setImage] = useState(null);
   const image = new Image();
   image.src = props.image;
   image.onload = () => {
-    setImage(true);
+    setImage(200);
+  };
+  image.onerror = () => {
+    setImage(400);
   };
 
   let extraData = props.extraData ? `(${props.extraData})` : '';
@@ -16,12 +21,12 @@ const CatalogoItem = props => {
       {loading ? (
         <div className='catalogo__item'>
           <div className='catalogo__image'>
-            <img src={`${image.src}`} alt={props.name} />
+            <img src={`${loading === 200 ? image.src : imageError}`} alt={props.name} />
           </div>
           <div className='catalogo__info'>
             <h3 className='catalogo__title'>{props.name}</h3>
             <h4 className='catalogo__valor color--secundario'>{props.valor}</h4>
-            {props.state ? (
+            {loading === 200 ? (
               <a
                 href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name} - ${props.valor}* ${extraData} ${image.src}`}
                 className='catalogo__wsp btn btn--primario btn--block-xs'
@@ -32,7 +37,7 @@ const CatalogoItem = props => {
                 <IoLogoWhatsapp />
               </a>
             ) : (
-              <div className='alerta alerta--small alerta--aviso text-align-center-xs'>Sin Stock</div>
+              <div className='alerta alerta--small alerta--aviso text-align-center-xs'>No se pudo cargar el producto</div>
             )}
           </div>
         </div>
