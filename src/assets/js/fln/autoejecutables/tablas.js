@@ -4,19 +4,19 @@
  */
 
 /**
- * Funcionalidad que agarra las tablas dentro de "contenido-dinamico" y le aplica las propiedades de las tablas de la librería, dependiendo de las clases que se le asignen en el TinyMce
+ * Funcionalidad que agarra las tablas dentro de "admin-content" y le aplica las propiedades de las tablas de la librería, dependiendo de las clases que se le asignen en el TinyMce
  * @function
  * @memberof tablas
  */
 
 fln.tablas = () => {
   /**
-   * Objeto que agarra todas las clases "contenido-dinamico"
+   * Objeto que agarra todas las clases "admin-content"
    * @type {object}
    * @memberof tablas
    * @instance
    */
-  let _contenidoDinamico = document.querySelectorAll('.contenido-dinamico');
+  let _contenidoDinamico = document.querySelectorAll('.admin-content');
 
   if (_contenidoDinamico.length) {
     _contenidoDinamico.forEach((el, i) => {

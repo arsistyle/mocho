@@ -1,10 +1,49 @@
 :root {
-  --header: 100px;
+  // Colors
+
+  --primario100: #{$primario100};
+  --primario200: #{$primario200};
+  --primario300: #{$primario300};
+  --primario400: #{$primario400};
+  --primario: #{$primario500};
+  --primario600: #{$primario600};
+  --primario700: #{$primario700};
+  --primario800: #{$primario800};
+  --primario900: #{$primario900};
+  --secundario100: #{$secundario100};
+  --secundario200: #{$secundario200};
+  --secundario300: #{$secundario300};
+  --secundario400: #{$secundario400};
+  --secundario: #{$secundario500};
+  --secundario600: #{$secundario600};
+  --secundario700: #{$secundario700};
+  --secundario800: #{$secundario800};
+  --secundario900: #{$secundario900};
+  --terciario100: #{$terciario100};
+  --terciario200: #{$terciario200};
+  --terciario300: #{$terciario300};
+  --terciario400: #{$terciario400};
+  --terciario: #{$terciario500};
+  --terciario600: #{$terciario600};
+  --terciario700: #{$terciario700};
+  --terciario800: #{$terciario800};
+  --terciario900: #{$terciario900};
+
+  // Typography
+  --titlesFont: #{$font-titulos}; 
+
+  // Layout
+  --header: 80px;
   --logo: 180px;
-  --frame: 1280px;
+  --frame: 1360px;
+  --contentPadding: 5rem;
   @include break(md-mw) {
     --header: 45px;
     --logo: 100px;
+    --contentPadding: 3rem;
+  }
+  @include break(sm-mw) {
+    --contentPadding: 1.5rem;
   }
 }
 
@@ -12,15 +51,6 @@
   width: 100%;
   max-width: var(--frame);
   margin: auto;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @keyframes placeholder {

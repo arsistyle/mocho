@@ -210,7 +210,7 @@ $_CONFIG: (
   layout: (
     cols: (
       total: 12,
-      gap: 1.5rem,
+      gap: var(--gap),
       breaks: (
         sm 544 570,
         md 768 720,

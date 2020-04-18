@@ -1,36 +1,42 @@
-import React from 'react';
-// import ScrollableAnchor from 'react-scrollable-anchor'
-// import { useCurrentWitdh } from './Functions';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 
 /** DATA **/
 import { Global } from './data';
 
-/** COMPONETNS **/
+/** COMPONENTS **/
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Catalogo from './components/Catalogo';
+import Home from './components/Home';
+import CatalogoDetalle from './components/Catalogo/CatalogoDetalle';
 
 /** ASSETS **/
 // images
 import Logo from './assets/img/logo.svg';
-// import ImageRRSS from './assets/img/bg.jpg';
 // Styles
 import './assets/scss/ars1/ars1.scss';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
-    <main className="App">
-      <Header
-        logo={Logo}
-        alt={Global.title}
-        wspurl={Global.wsp.url}
-        wspicon={Global.wsp.icon}
-        wsptext={Global.wsp.text}
-      />
-      <Hero title={Global.hero.title} btn={Global.hero.btn} />
-      {/* <ScrollableAnchor id={'catalogo'}> */}
-      <Catalogo />
-      {/* </ScrollableAnchor> */}
+    <main className='App'>
+      <Router>
+        <ScrollToTop />
+        <Header logo={Logo} alt={Global.title} wspurl={Global.wsp.url} wspicon={Global.wsp.icon} wsptext={Global.wsp.text} />
+        <Switch>
+          <Route path='/:slug' exact component={CatalogoDetalle} />
+          <Route path='/' exact component={Home} />
+          {/* <Route name="404: No Match for route" path="*" component={NoMatch} /> */}
+        </Switch>
+      </Router>
     </main>
   );
 }

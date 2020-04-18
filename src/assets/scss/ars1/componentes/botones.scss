@@ -55,6 +55,9 @@
     input {
       @include posicion(fixed,-200rem,-200rem,null,null);
     }
+    svg {
+      margin-left: 1rem;
+    }
   }
 
   $btns: ();

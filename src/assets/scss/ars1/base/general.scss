@@ -1,5 +1,12 @@
 //** Configuración General **//
 
+:root {
+  --gap: 1.5rem;
+  @include break(sm-mw) {
+    --gap: 0.75rem;
+  }
+}
+
 
 *{
 	box-sizing: border-box;
@@ -38,7 +45,7 @@ body{
 	}
 }
 
-.contenido-dinamico{
+.admin-content{
 	img{
 		max-width: 100%;
 		margin-bottom: 3rem;

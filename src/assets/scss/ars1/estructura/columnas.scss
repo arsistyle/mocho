@@ -24,8 +24,8 @@ $gap: map-deep-get($_CONFIG, 'layout', 'cols', 'gap');
   flex: 0 1 auto;
   // flex-direction: row;
   flex-wrap: wrap;
-  margin-left: -$gap;
-  margin-right: -$gap;
+  margin-left: calc(-1 * var(--gap));
+  margin-right: calc(-1 * var(--gap));
   .no-flexbox & {
     &:after {
       content: " ";

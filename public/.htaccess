@@ -1,39 +1,26 @@
-<Files .htaccess>
-	Order Allow,Deny
-	Deny from all
-</Files>
 
 <IfModule mod_rewrite.c>
+  RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
-  RewriteCond %{HTTPS} on
-  RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-  RewriteRule . /$1 [L]
+  RewriteRule . /index.html [L]
 </IfModule>
 
-SetEnvIfNoCase User-Agent "^libwww-perl*" block_bad_bots
-Deny from env=block_bad_bots
-
-Options All -multiviews -Indexes +SymLinksIfOwnerMatch
-AddDefaultCharset utf-8
-DefaultLanguage es
-ServerSignature Off
-Header unset ETag
-FileETag None
-
-<IfModule mod_deflate.c>
-	AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript text/xml application/javascript application/x-javascript application/ecmascript application/rss+xml application/xml
-	<IfModule mod_headers.c>
-		Header append Vary User-Agent
-	</IfModule>
+## EXPIRES CACHING ##
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access 1 year"
+ExpiresByType image/jpeg "access 1 year"
+ExpiresByType image/gif "access 1 year"
+ExpiresByType image/png "access 1 year"
+ExpiresByType text/css "access 1 month"
+ExpiresByType application/javascript "access 1 month"
+ExpiresByType application/x-javascript "access 1 month"
+ExpiresByType image/x-icon "access 1 year"
+ExpiresDefault "access 2 days"
 </IfModule>
+## EXPIRES CACHING ##
 
-<ifmodule mod_expires.c>
-	<filesmatch "\.(jpg|gif|png|css|ico|js|woff|woff2|eot|svg|ttf)$">
-	ExpiresActive on
-	ExpiresDefault "access plus 1 year"
-	</filesmatch>
-</ifmodule>

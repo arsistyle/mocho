@@ -1,6 +1,6 @@
 @import '../style';
 .hero {
-  height: 100vh;
+  height: 80vh;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -46,7 +46,7 @@
     max-width: var(--maxwidth);
     margin: 0 auto;
     z-index: 4;
-    padding: 0 3rem;
+    padding: var(--header) 3rem 0;
     @include break(md-mw) {
       padding: 10rem 1.5rem 0;
     }

@@ -9,7 +9,7 @@
 			justify-content: space-between;
 			padding: 20px;
 			position: relative;
-			.contenido-dinamico &{
+			.admin-content &{
 				font-size: 1em;
 				margin: 0;
 			}
@@ -27,7 +27,7 @@
 			&:focus {
 				outline: 0;
 			}
-			.contenido-dinamico &{
+			.admin-content &{
 				padding: 0;
 				&:before{
 					display: none;
@@ -62,7 +62,7 @@
 					background: gris(92);
 				}
 			}
-			.contenido-dinamico &{
+			.admin-content &{
 				&:after{
 					display: none;
 					height: 0;

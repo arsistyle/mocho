@@ -14,7 +14,7 @@ h6,
 .h6 {
 	font-family: $font-titulos, sans-serif;
 	color: map-deep-get($_CONFIG, 'ui', 'colores', 'textos', 'titulos');
-	font-weight: 400;
+	font-weight: 600;
 	margin-top: .75em;
 	margin-bottom: .75em;
 	line-height: 1.25;
@@ -82,11 +82,11 @@ ul, ol, dl{
 	list-style-type: none;
 }
 
-.contenido-dinamico ul,
+.admin-content ul,
 .lista-desordenada,
-.contenido-dinamico ol,
+.admin-content ol,
 .lista-ordenada,
-.contenido-dinamico dl,
+.admin-content dl,
 .lista-definicion {
 	font-size: 1.6rem;
 	color: map-deep-get($_CONFIG, 'ui', 'colores', 'textos', 'listas');
@@ -112,7 +112,7 @@ ul, ol, dl{
 	}
 }
 
-.contenido-dinamico ul,
+.admin-content ul,
 .lista-desordenada {
 	li {
 		&:before {
@@ -151,7 +151,7 @@ ul, ol, dl{
 	}
 }
 
-.contenido-dinamico ol,
+.admin-content ol,
 .lista-ordenada {
 	counter-reset: item;
 	li {
@@ -177,7 +177,7 @@ ul, ol, dl{
 	}
 }
 
-.contenido-dinamico dl,
+.admin-content dl,
 lista-definicion {
 	dt {
 		font-weight: 500;
@@ -191,7 +191,7 @@ lista-definicion {
 	}
 }
 
-.contenido-dinamico {
+.admin-content {
 	p,
 	blockquote,
 	ul,

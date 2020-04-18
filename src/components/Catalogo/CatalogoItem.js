@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { MILES } from '../../ars1';
 // import Img from 'react-cool-img';
-import { IoLogoWhatsapp } from 'react-icons/io';
+// import { IoLogoWhatsapp } from 'react-icons/io';
 const imageError = require('../../assets/img/catalogo-error.svg');
 
-const CatalogoItem = props => {
+const CatalogoItem = (props) => {
+  const { acf, slug, title } = props.data;
   const [loading, setImage] = useState(null);
   const image = new Image();
-  image.src = props.image;
+  image.src = acf.imagen;
   image.onload = () => {
     setImage(200);
   };
@@ -14,45 +17,23 @@ const CatalogoItem = props => {
     setImage(400);
   };
 
-  let extraData = props.extraData ? `(${props.extraData})` : '';
-
   return (
-    <div className='col-xs-12 col-sm-6 col-md-4 col-lg-3'>
-      {loading ? (
-        <div className='catalogo__item'>
-          <div className='catalogo__image'>
-            <img src={`${loading === 200 ? image.src : imageError}`} alt={props.name} />
-          </div>
-          <div className='catalogo__info'>
-            <h3 className='catalogo__title'>{props.name}</h3>
-            <h4 className='catalogo__valor color--secundario'>{props.valor}</h4>
-            {loading === 200 ? (
-              <a
-                href={`https://wa.me/56981902681?text=Hola gente de Mocho, Quiero comprar las calcetas *${props.name} - ${props.valor}* ${extraData} ${image.src}`}
-                className='catalogo__wsp btn btn--primario btn--block-xs'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <span className='catalogo__wsp__name'>Lo quiero</span>
-                <IoLogoWhatsapp />
-              </a>
-            ) : (
-              <div className='alerta alerta--small alerta--aviso text-align-center-xs'>No se pudo cargar el producto</div>
-            )}
-          </div>
+    <div className='col-xs-6 col-sm-4 col-md-3'>
+      <Link to={`/${slug}`} className='catalogo__item'>
+        <div className='catalogo__tags'>
+          {acf.nuevo && <div className='catalogo__tags__item catalogo__tags__item--nuevo'>Nuevo</div>}
+          {acf.oferta && <div className='catalogo__tags__item catalogo__tags__item--oferta'>Oferta</div>}
+          {Number(acf.stock) === 1 && <div className='catalogo__tags__item catalogo__tags__item--ultimo'>Último</div>}
         </div>
-      ) : (
-        <div className='catalogo__item placeholder'>
-          <div className='catalogo__image placeholder--child'></div>
-          <div className='catalogo__info'>
-            <div className='catalogo__title placeholder'>
-              <span className='placeholder--child'></span>
-              <span className='placeholder--child'></span>
-            </div>
-            <div className='catalogo__valor placeholder--child'></div>
-          </div>
+        <div className='catalogo__image'>{loading ? <img src={`${loading === 200 ? image.src : imageError}`} alt={props.name} /> : <img src={imageError} alt={props.name} />}</div>
+        <div className='catalogo__info'>
+          <h3 className='catalogo__title'>{title.rendered}</h3>
+          <h4 className='catalogo__valor color--secundario'>
+            {acf.oferta && <span>{MILES(acf['precio_anterior'], '$')}</span>}
+            {MILES(acf.precio, '$')}
+          </h4>
         </div>
-      )}
+      </Link>
     </div>
   );
 };
