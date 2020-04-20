@@ -73,6 +73,9 @@
     &.placeholder--child {
       padding-bottom: 100%;
       background: rgba(gris(70), 0.4);
+      &::after {
+        display: none;
+      }
     }
   }
   &__info {
