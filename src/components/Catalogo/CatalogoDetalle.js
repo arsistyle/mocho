@@ -14,7 +14,7 @@ const ProjectsDetail = ({ match }) => {
     async function loadProduct() {
       const response = await getProduct(slug);
       if (response.status === 200) {
-        console.log(response.data[0])
+        console.log(response.data[0]);
         setProducto(response.data[0]);
         setLoading(false);
       }
@@ -22,7 +22,7 @@ const ProjectsDetail = ({ match }) => {
     loadProduct();
   }, [slug]);
 
-  return loading ? (<></>) : (<Page product="true" data={producto}/>)
+  return loading ? <></> : <Page product='true' data={producto} />;
 };
 
 export default ProjectsDetail;

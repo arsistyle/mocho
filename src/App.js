@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 
-/** DATA **/
-import { Global } from './data';
 
 /** COMPONENTS **/
 import Header from './components/Header';
@@ -10,8 +8,6 @@ import Home from './components/Home';
 import CatalogoDetalle from './components/Catalogo/CatalogoDetalle';
 
 /** ASSETS **/
-// images
-import Logo from './assets/img/logo.svg';
 // Styles
 import './assets/scss/ars1/ars1.scss';
 
@@ -30,7 +26,7 @@ function App() {
     <main className='App'>
       <Router>
         <ScrollToTop />
-        <Header logo={Logo} alt={Global.title} wspurl={Global.wsp.url} wspicon={Global.wsp.icon} wsptext={Global.wsp.text} />
+        <Header />
         <Switch>
           <Route path='/:slug' exact component={CatalogoDetalle} />
           <Route path='/' exact component={Home} />
