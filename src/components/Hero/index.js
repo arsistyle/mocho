@@ -16,7 +16,7 @@ const Hero = (props) => {
   useEffect(() => {
     async function loadHero() {
       const response = await getHero();
-      if (response.status === 200) {
+      if (response.data) {
         setHero(response.data.acf);
         setLoading(false);
       }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { IoLogoWhatsapp } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 import { useScroll } from '../../Functions';
 import { getHeader } from '../../services';
+import Menu from '../Menu';
 import Logo from '../../assets/img/logo.svg';
 import '../../assets/scss/style/components/Header.scss';
 
@@ -14,7 +15,7 @@ const Header = () => {
   useEffect(() => {
     async function loadHeader() {
       const response = await getHeader();
-      if (response.status === 200) {
+      if (response.data) {
         setHeader(response.data.acf);
         setLoading(false);
       }
@@ -25,13 +26,10 @@ const Header = () => {
     <></>
   ) : (
     <header className={scrollY > Number(headerHeight.replace('px', '')) ? 'header header--active' : 'header'}>
-      <a href='/' className='header__item header__item--logo'>
+      <Link to='/' className='header__item header__item--logo'>
         <img src={Logo} alt='' />
-      </a>
-      <a href={encodeURI(`${process.env.REACT_APP_WSP}${header.whatsapp}`)} target='_blank' rel='noopener noreferrer' className='header__item header__item--btn btn btn--whatsapp'>
-        <span>Contacto</span>
-        <IoLogoWhatsapp />
-      </a>
+      </Link>
+      <Menu />
     </header>
   );
 };

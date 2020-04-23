@@ -2,13 +2,15 @@ import React from 'react';
 
 /** COMPONENTS **/
 import Hero from '../Hero';
-import Catalogo from '../Catalogo'
+import Productos from '../Productos/Listado'
 
 const Home = props => {
   return (
     <>
       <Hero />
-      <Catalogo />
+      <div className='container-fluid'>
+        <Productos />
+      </div>
     </>
   );
 }

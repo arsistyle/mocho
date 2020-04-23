@@ -1,0 +1,85 @@
+@import '../style.scss';
+.menu {
+  $t: &;
+  display: flex;
+  align-items: center;
+  &__link {
+    display: flex;
+    align-items: center;
+    padding: 1.8rem 3.2rem;
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: gris(24);
+    @include transicion;
+    border-radius: 6px;
+    margin:0 2px;
+    &--active {
+      background: rgba(gris(70),.1);
+    }
+  }
+  &__item {
+    &:hover {
+      #{$t}__link:not(.btn) {
+        background: rgba(gris(60),.1);
+      }
+      #{$t}__childs {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  &__childs {
+    $c : &;
+    @include posicion(absolute,100%,0,null,0);
+    background: gris(24);
+    display: flex;
+    transform: translateY(-1rem);
+    @include transicion;
+    opacity: 0;
+    visibility: hidden;
+    transition-delay: 100ms;
+    &__item {
+      flex: 1;
+      height: calc(var(--header) * 2);
+    }
+    &__link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      font-size: 1.6rem;
+      color: blanco(1);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      position: relative;
+      &--active {
+        background: rgba($primario,.2);
+        #{$c}__image {
+          filter: grayscale(0);
+        }
+      }
+      &:hover {
+        #{$c}__image {
+          opacity: .3;
+          filter: grayscale(100%);
+        }
+      }
+    }
+    &__title {
+      position: relative;
+      z-index: 1;
+    }
+    &__image {
+      @include posicion(absolute,0,0,0,0);
+      @include transicion;
+      opacity: .5;
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+    }
+  }
+}

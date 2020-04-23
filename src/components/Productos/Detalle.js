@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { getProduct } from '../../services';
-import Page from '../Page';
+import { DetalleProducto } from '../Templates';
 
-const ProjectsDetail = ({ match }) => {
-  const {
-    params: { slug },
-  } = match;
-
+const Detalle = props => {
+  let { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [producto, setProducto] = useState([]);
 
   useEffect(() => {
     async function loadProduct() {
       const response = await getProduct(slug);
-      if (response.status === 200) {
-        console.log(response.data[0]);
+      if (response.data) {
         setProducto(response.data[0]);
         setLoading(false);
       }
@@ -22,7 +19,7 @@ const ProjectsDetail = ({ match }) => {
     loadProduct();
   }, [slug]);
 
-  return loading ? <></> : <Page product='true' data={producto} />;
+  return loading ? <></> : <DetalleProducto data={producto} />;
 };
 
-export default ProjectsDetail;
+export default Detalle;

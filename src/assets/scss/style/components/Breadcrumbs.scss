@@ -1,0 +1,31 @@
+@import '../style';
+.breadcrumbs {
+  display: flex;
+  background: blanco(1);
+  height: 80px;
+  align-items: center;
+  padding: 3rem 5rem;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 50px negro(0.1);
+  &__item {
+    display: flex;
+    align-items: center;
+    &--separator {
+      svg {
+        fill: gris(70);
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+    }
+  }
+  &__link {
+    font-size: 1.6rem;
+    color: gris(60);
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    &--active {
+      color: gris(40);
+    }
+  }
+}
