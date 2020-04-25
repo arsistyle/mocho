@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import PageProductos from './components/Productos/Page';
 import Detalle from './components/Productos/Detalle';
+import Footer from './components/Footer';
 import './assets/scss/ars1/ars1.scss';
 
 function ScrollToTop() {
@@ -17,10 +18,13 @@ function ScrollToTop() {
   return null;
 }
 
+const error404 = () => <h1>Error 404</h1>;
+
 const COMPONENTES = {
   Home,
   PageProductos,
   Detalle,
+  error404
 };
 
 const ROUTES = (data) => {
@@ -71,8 +75,8 @@ function App() {
   useEffect(() => {
     async function loadMenu() {
       const response = await getMenu('menu-rest');
-      if (response.data) {
-        setMenu(response.data.items);
+      if (response.items) {
+        setMenu(response.items);
         setLoading(false);
       }
     }
@@ -87,10 +91,11 @@ function App() {
         <Switch>
           {!loading &&
             ROUTES(menu).map((x, i) => {
-              return <Route key={i} path={x.path} exact={x.exact} render={({ match }) => <x.component id={x.id} match={match} slug={x.slug} {...x.extras} />} />;
+              return x.component && <Route key={i} path={x.path} exact={x.exact} render={({ match }) => <x.component id={x.id} match={match} slug={x.slug} {...x.extras} />} />;
             })}
         </Switch>
       </Router>
+      <Footer/>
     </main>
   );
 }

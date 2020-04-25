@@ -12,8 +12,8 @@ const Menu = (props) => {
   useEffect(() => {
     async function loadMenu() {
       const response = await getMenu('menu-rest');
-      if (response.data) {
-        setMenu(response.data);
+      if (response.items) {
+        setMenu(response);
         setLoading(false);
       }
     }
@@ -33,25 +33,37 @@ const Menu = (props) => {
               break;
             case 'Contacto':
               url = x.url;
-              break;          
+              break;
             default:
               break;
           }
           return (
             x.visible && (
               <li className='menu__item' key={i}>
-                <NavLink exact={x.title === 'Inicio' ? true : false} className={`menu__link ${x.classes ? x.classes : ''} ${x.nuevo ? `menu__link--nuevo` : ''}`} activeClassName="menu__link--active" target={x.target} to={url}>
-                  {x.title}
-                  {x.title === 'Contacto' && <IoLogoWhatsapp />}
-                </NavLink>
+                {x.title === 'Contacto' ? (
+                  <a className={`menu__link ${x.classes ? x.classes : ''}`} target={x.target} href={url}>
+                    {x.title}
+                    <IoLogoWhatsapp />
+                  </a>
+                ) : (
+                  <NavLink
+                    exact={x.title === 'Inicio' ? true : false}
+                    className={`menu__link ${x.classes ? x.classes : ''} ${x.nuevo ? `menu__link--nuevo` : ''}`}
+                    activeClassName='menu__link--active'
+                    target={x.target}
+                    to={url}
+                  >
+                    {x.title}
+                  </NavLink>
+                )}
                 {x['child_items']?.length && (
-                  <ul className="menu__childs">
+                  <ul className='menu__childs'>
                     {x['child_items'].map((c, i) => {
                       return (
                         <li className='menu__childs__item' key={i}>
                           <NavLink exact className='menu__childs__link' activeClassName='menu__childs__link--active' to={`/${x.slug}/${c.slug}`}>
                             <div className='menu__childs__title'>{c.title}</div>
-                            <div className='menu__childs__image'>{c.imagen && <img src={c.imagen} alt={x.title}/>}</div>
+                            <div className='menu__childs__image'>{c.imagen && <img src={c.imagen} alt={x.title} />}</div>
                           </NavLink>
                         </li>
                       );

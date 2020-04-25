@@ -15,8 +15,8 @@ const Header = () => {
   useEffect(() => {
     async function loadHeader() {
       const response = await getHeader();
-      if (response.data) {
-        setHeader(response.data.acf);
+      if (response.acf) {
+        setHeader(response.acf);
         setLoading(false);
       }
     }

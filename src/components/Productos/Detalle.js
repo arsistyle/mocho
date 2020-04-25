@@ -11,8 +11,8 @@ const Detalle = props => {
   useEffect(() => {
     async function loadProduct() {
       const response = await getProduct(slug);
-      if (response.data) {
-        setProducto(response.data[0]);
+      if (response) {
+        setProducto(response[0]);
         setLoading(false);
       }
     }

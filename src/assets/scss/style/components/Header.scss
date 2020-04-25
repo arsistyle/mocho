@@ -1,14 +1,18 @@
 @import '../style';
 .header {
-  @include posicion(sticky, 0, 0, null, 0);
+  @include posicion(fixed, 0, 0, null, 0);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1.5rem;
   z-index: 99;
-  background: blanco(1);
+  // background: blanco(1);
   height: var(--header);
   @include transicion;
+  transition-delay: 100ms;
+  &--active {
+    background: gris(20);
+  }
   &__item {
     &--logo {
       width: var(--logo);

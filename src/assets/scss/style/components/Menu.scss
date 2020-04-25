@@ -9,18 +9,20 @@
     padding: 1.8rem 3.2rem;
     font-size: 1.6rem;
     text-decoration: none;
-    color: gris(24);
     @include transicion;
     border-radius: 6px;
     margin:0 2px;
+    position: relative;
+    color: blanco(1);
+    z-index: 1;
     &--active {
-      background: rgba(gris(70),.1);
+      background: rgba(gris(70),.2);
     }
   }
   &__item {
     &:hover {
       #{$t}__link:not(.btn) {
-        background: rgba(gris(60),.1);
+        background: rgba(gris(60),.2);
       }
       #{$t}__childs {
         visibility: visible;
@@ -31,7 +33,7 @@
   }
   &__childs {
     $c : &;
-    @include posicion(absolute,100%,0,null,0);
+    @include posicion(absolute,0,0,null,0);
     background: gris(24);
     display: flex;
     transform: translateY(-1rem);
@@ -39,6 +41,18 @@
     opacity: 0;
     visibility: hidden;
     transition-delay: 100ms;
+    padding-top: var(--header);
+    z-index: -1;
+    &::before {
+      content: '';
+      display: block;
+      height: var(--header);
+      @include posicion(fixed,0,0,null,0);
+      background: gris(24);
+    }
+    @include break(sm-mw) {
+      flex-direction: column;
+    }
     &__item {
       flex: 1;
       height: calc(var(--header) * 2);

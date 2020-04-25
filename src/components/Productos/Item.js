@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MILES } from '../../ars1';
-// import Img from 'react-cool-img';
-// import { IoLogoWhatsapp } from 'react-icons/io';
 const imageError = require('../../assets/img/catalogo-error.svg');
 
 const Item = (props) => {

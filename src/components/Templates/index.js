@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import FsLightbox from 'fslightbox-react';
 import Productos from '../Productos/Listado';
 import Breadcrumb from '../Breadcrumbs';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,12 @@ import { MILES } from '../../ars1';
 
 import '../../assets/scss/style/components/Page.scss';
 import '../../assets/scss/style/components/Banner.scss';
+
+function Galeria(props) {
+  const types = props.data.map((x) => x.item);
+  const sources = props.data.map((x) => Object.values(x).filter(Boolean).splice(1)).flat();
+  return <FsLightbox types={types} toggler={props.toggler} sources={sources} />;
+}
 
 export const Banner = (props) => {
   let { imagen, title, subtitle, container } = props;
@@ -44,19 +51,21 @@ export const ListadoProductos = (props) => {
   return (
     <section className='page'>
       <Banner imagen={acf.imagen} title={title.rendered} subtitle={acf.subtitle} container='true' />
-      <div className='frame'>
-        <Breadcrumb separator={<IoIosArrowForward />}>
-          {options.items.map(({ to, label, active }) => {
-            return (
-              <Link className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`} key={to} to={to}>
-                {label}
-              </Link>
-            );
-          })}
-        </Breadcrumb>
-        <div className='page__content'>
-          <div className='page__content__detail' dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
-          <Productos id={id} />
+      <div className='container-fluid'>
+        <div className='frame'>
+          <Breadcrumb separator={<IoIosArrowForward />}>
+            {options.items.map(({ to, label, active }) => {
+              return (
+                <Link className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`} key={to} to={to}>
+                  {label}
+                </Link>
+              );
+            })}
+          </Breadcrumb>
+          <div className='page__content'>
+            <div className='page__content__detail' dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
+            <Productos id={id} />
+          </div>
         </div>
       </div>
     </section>
@@ -65,6 +74,7 @@ export const ListadoProductos = (props) => {
 
 export const DetalleProducto = (props) => {
   const { title, slug, content, acf } = props.data;
+  const [toggler, setToggler] = useState(false);
   const options = {
     items: [
       { to: '/', label: 'Inicio' },
@@ -72,91 +82,78 @@ export const DetalleProducto = (props) => {
       { to: `/productos/${slug}`, label: `${title.rendered}`, active: true },
     ],
   };
+
   return (
     <section className='page'>
+      {acf.galeria && <Galeria data={acf.galeria} toggler={toggler} />}
       <Banner imagen={acf.imagen} />
-      <div className='frame'>
-        <Breadcrumb separator={<IoIosArrowForward />}>
-          {options.items.map(({ to, label, active }) => {
-            return (
-              <Link className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`} key={to} to={to}>
-                {label}
-              </Link>
-            );
-          })}
-        </Breadcrumb>
-        <div className='page__content admin-content'>
-          {/* <Breadcrumbs /> */}
-          <div className='row'>
-            <div className='col-xs-12 col-md-5'>
-              <div className='productos__detalle__imagen'>
-                <div className='productos__tags'>
-                  {acf.nuevo && <div className='productos__tags__item productos__tags__item--nuevo'>Nuevo</div>}
-                  {acf.oferta && <div className='productos__tags__item productos__tags__item--oferta'>Oferta</div>}
-                  {Number(acf.stock) === 1 && <div className='productos__tags__item productos__tags__item--ultimo'>Último</div>}
+      <div className='container-fluid'>
+        <div className='frame'>
+          <Breadcrumb separator={<IoIosArrowForward />}>
+            {options.items.map(({ to, label, active }) => {
+              return (
+                <Link className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`} key={to} to={to}>
+                  {label}
+                </Link>
+              );
+            })}
+          </Breadcrumb>
+          <div className='page__content admin-content'>
+            <div className='row'>
+              <div className='col-xs-12 col-md-5'>
+                <div className='productos__detalle__imagen' onClick={() => setToggler(!toggler)}>
+                  <div className='productos__tags'>
+                    {acf.nuevo && <div className='productos__tags__item productos__tags__item--nuevo'>Nuevo</div>}
+                    {acf.oferta && <div className='productos__tags__item productos__tags__item--oferta'>Oferta</div>}
+                    {Number(acf.stock) === 1 && <div className='productos__tags__item productos__tags__item--ultimo'>Último</div>}
+                  </div>
+                  <img src={acf.imagen} alt='' />
                 </div>
-                <img src={acf.imagen} alt='' />
               </div>
-            </div>
-            <div className='col-xs-12 col-md-7'>
-              <div className='productos__detalle__info'>
-                <h1 className='productos__detalle__info__title'>{title.rendered}</h1>
-                <h2 className='productos__detalle__info__valor color--secundario'>
-                  {acf.oferta && <span>{MILES(acf['precio_anterior'], '$')}</span>}
-                  {MILES(acf.precio, '$')}
-                </h2>
-                {acf['descripcion_corta'] && <p>{acf['descripcion_corta']}</p>}
-                <div className='tabla tabla--borde'>
-                  <table>
-                    <tbody>
-                      {acf.stock && (
-                        <tr>
-                          <td>Stock</td>
-                          <td>{acf.stock}</td>
-                        </tr>
-                      )}
-                      {acf.tallas && (
-                        <tr>
-                          <td>Tallas</td>
-                          <td>{acf.tallas}</td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
+              <div className='col-xs-12 col-md-7'>
+                <div className='productos__detalle__info'>
+                  <h1 className='productos__detalle__info__title'>{title.rendered}</h1>
+                  <h2 className='productos__detalle__info__valor color--secundario'>
+                    {acf.oferta && <span>{MILES(acf['precio_anterior'], '$')}</span>}
+                    {MILES(acf.precio, '$')}
+                  </h2>
+                  {acf['descripcion_corta'] && <p>{acf['descripcion_corta']}</p>}
+                  <div className='tabla tabla--borde'>
+                    <table>
+                      <tbody>
+                        {acf.stock && (
+                          <tr>
+                            <td>Stock</td>
+                            <td>{acf.stock}</td>
+                          </tr>
+                        )}
+                        {acf.tallas && (
+                          <tr>
+                            <td>Tallas</td>
+                            <td>{acf.tallas}</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                  {acf.stock && (
+                    <a
+                      href={`${process.env.REACT_APP_WSP}Hola gente de Mocho, Quiero comprar las calcetas *${title.rendered} - ${MILES(acf.precio, '$')}* ${acf['extra_data']} ${acf.imagen}`}
+                      className='productos__wsp btn btn--primario'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <span className='productos__wsp__name'>Lo quiero</span>
+                      <IoLogoWhatsapp />
+                    </a>
+                  )}
                 </div>
-                {acf.stock && (
-                  <a
-                    href={`${process.env.REACT_APP_WSP}Hola gente de Mocho, Quiero comprar las calcetas *${title.rendered} - ${MILES(acf.precio, '$')}* ${acf['extra_data']} ${acf.imagen}`}
-                    className='productos__wsp btn btn--primario'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <span className='productos__wsp__name'>Lo quiero</span>
-                    <IoLogoWhatsapp />
-                  </a>
-                )}
               </div>
-            </div>
-            <div className='col-xs-12'>
-              <div className='page__content__detail' dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
+              <div className='col-xs-12'>
+                <div className='page__content__detail' dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Page = (props) => {
-  const { title, content, acf } = props.data;
-  return (
-    <section className='page'>
-      <div className='page__banner'>{acf.imagen ? <img src={acf.imagen} alt={title.rendered} /> : ''}</div>
-      <div className='frame'>
-        <div className='page__content'>
-          {/* <Breadcrumbs /> */}
-          <h1>{title}</h1>
-          <div className='page__content__detail' dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
         </div>
       </div>
     </section>
@@ -169,6 +166,21 @@ export const PageLoading = () => {
       <div className='page__banner'></div>
       <div className='frame'>
         <div className='page__content'></div>
+      </div>
+    </section>
+  );
+};
+
+const Page = (props) => {
+  const { title, content, acf } = props.data;
+  return (
+    <section className='page'>
+      <div className='page__banner'>{acf.imagen ? <img src={acf.imagen} alt={title.rendered} /> : ''}</div>
+      <div className='frame'>
+        <div className='page__content'>
+          <h1>{title}</h1>
+          <div className='page__content__detail' dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
+        </div>
       </div>
     </section>
   );

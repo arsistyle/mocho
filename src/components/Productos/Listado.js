@@ -15,8 +15,8 @@ const Productos = (props) => {
   useEffect(() => {
     async function loadProducts() {
       const response = await getProducts(id);
-      if (response.data) {
-        setProductos(response.data);
+      if (response) {
+        setProductos(response);
         setLoading(false);
       }
     }
@@ -54,7 +54,11 @@ const Productos = (props) => {
           ) : (
             <>{items}</>
           )}
-          {!productos.length && <div className="col-xs-12"><div className="alerta alerta--aviso">Estamos sin stock en esta categoría</div></div>}
+          {!productos.length && (
+            <div className='col-xs-12'>
+              <div className='alerta alerta--aviso'>Estamos sin stock en esta categoría</div>
+            </div>
+          )}
         </div>
       </div>
     </section>
