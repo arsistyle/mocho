@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useScroll } from '../../Functions';
-import { getHeader } from '../../services';
-import Menu from '../Menu';
+import { useScroll, useCurrentWitdh } from '../../Functions';
+// import { getHeader } from '../../services';
+import Menu, { MenuResponsive } from '../Menu';
+import Bg from '../Bg';
 import Logo from '../../assets/img/logo.svg';
 import '../../assets/scss/style/components/Header.scss';
 
 const Header = () => {
   const headerHeight = getComputedStyle(document.documentElement).getPropertyValue('--header');
   let scrollY = useScroll().scrollY;
-  const [loading, setLoading] = useState(true);
-  const [header, setHeader] = useState({});
-
-  useEffect(() => {
-    async function loadHeader() {
-      const response = await getHeader();
-      if (response.acf) {
-        setHeader(response.acf);
-        setLoading(false);
-      }
-    }
-    loadHeader();
-  }, []);
-  return loading ? (
-    <></>
-  ) : (
-    <header className={scrollY > Number(headerHeight.replace('px', '')) ? 'header header--active' : 'header'}>
+  const [open, setOpen] = useState(false);
+  // console.log(open);
+  return (
+    <header className={`header fadeInDown ${scrollY > Number(headerHeight.replace('px', '')) ? 'header--active' : ''}`}>
       <Link to='/' className='header__item header__item--logo'>
         <img src={Logo} alt='' />
       </Link>
-      <Menu />
+      <MenuResponsive open={open} setOpen={setOpen} responsive={useCurrentWitdh() < 992} />
+      <Bg open={open} setOpen={setOpen} responsive={useCurrentWitdh() < 992} />
+      <Menu open={open} setOpen={setOpen} responsive={useCurrentWitdh() < 992} />
     </header>
   );
 };

@@ -17,7 +17,7 @@ const Item = (props) => {
 
   return (
     <div className='col-xs-6 col-sm-4 col-md-3'>
-      <Link to={`/productos/${slug}`} className='productos__item'>
+      <Link to={`/productos/${slug}`} className='productos__item fadeInUp'>
         <div className='productos__tags'>
           {acf.nuevo && <div className='productos__tags__item productos__tags__item--nuevo'>Nuevo</div>}
           {acf.oferta && <div className='productos__tags__item productos__tags__item--oferta'>Oferta</div>}
@@ -25,7 +25,7 @@ const Item = (props) => {
         </div>
         <div className='productos__image'>{loading ? <img src={`${loading === 200 ? image.src : imageError}`} alt={props.name} /> : <img src={imageError} alt={props.name} />}</div>
         <div className='productos__info'>
-          <h3 className='productos__title'>{title.rendered}</h3>
+          <h3 className='productos__title' dangerouslySetInnerHTML={{ __html: title.rendered }}></h3>
           <h4 className='productos__valor color--secundario'>
             {acf.oferta && <span>{MILES(acf['precio_anterior'], '$')}</span>}
             {MILES(acf.precio, '$')}

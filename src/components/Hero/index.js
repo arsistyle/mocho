@@ -42,8 +42,8 @@ const Hero = (props) => {
         <img src={width < 768 ? MMobile : M} alt='' className='hero__svg' />
       </div>
       <div className='hero__container'>
-        <h1 className='hero__title titulo-hero'>{hero.titulo}</h1>
-        <Link to='catalogo' smooth={true} offset={-(Number(headerHeight.replace('px', '')) + 30)} className='hero__btn btn btn--primario'>
+        <h1 className='hero__title titulo-hero fadeInDown'>{hero.titulo}</h1>
+        <Link to='productos' smooth={true} offset={-(Number(headerHeight.replace('px', '')) + 30)} className='hero__btn btn btn--primario fadeInUp'>
           Explorar
         </Link>
       </div>

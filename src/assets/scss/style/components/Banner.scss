@@ -2,12 +2,10 @@
 .banner {
   overflow: hidden;
   margin-bottom: -40px;
-  height: 40vh;
   background: gris(20);
   display: grid;
-  &--container {
-    height: 70vh;
-  }
+  @include transicion;
+  transition-delay: 200ms;
   img {
     display: block;
     grid-area: 1/1;

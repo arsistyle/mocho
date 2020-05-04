@@ -11,7 +11,6 @@ const PageProductos = (props) => {
   useEffect(() => {
     async function loadPage() {
       const response = await getPage(slug);
-      console.log(response);
       if (response) {
         setPage(response[0]);
         setLoading(false);

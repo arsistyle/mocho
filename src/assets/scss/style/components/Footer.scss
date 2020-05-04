@@ -1,6 +1,22 @@
 @import '../style';
 .footer {
   background: gris(24);
+  margin-top: auto;
+  &__redes {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+    &__link {
+      width: 3rem;
+      height: 3rem;
+      margin: 1rem;
+      svg {
+        width: 100%;
+        height: 100%;
+        fill: blanco(1);
+      }
+    }
+  }
   &::after {
     content: attr(data-copy);
     display: block;

@@ -14,6 +14,7 @@
     }
     &.placeholder {
       box-shadow: none;
+      animation: none;
       background: rgba(gris(70), 0.2);
     }
   }
@@ -55,6 +56,7 @@
   &__image {
     position: relative;
     grid-area: 1/1;
+    padding-bottom: 100%;
     // padding-bottom: 3rem;
     &::after {
       content: '';
@@ -69,6 +71,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      @include posicion(absolute,0,0,0,0)
     }
     &.placeholder--child {
       padding-bottom: 100%;
@@ -126,6 +129,10 @@
   &__detalle {
     &__imagen {
       display: grid;
+      &.placeholder--child {
+        background: rgba(gris(70), 0.4);
+        padding-bottom: 100%;
+      }
       img {
         grid-area: 1/1;
         width: 100%;
@@ -134,11 +141,22 @@
     &__info {
       &__title {
         margin-top: 0;
+        &.placeholder--child {
+          background: rgba(gris(70), 0.4);
+          height: 4rem;
+          margin-bottom: 4rem;
+        }
       }
       &__valor {
         display: flex;
         align-items: center;
         line-height: 1;
+        &.placeholder--child {
+          background: rgba(gris(70), 0.4);
+          height: 3.5rem;
+          margin-bottom: 3rem;
+          width: 150px;
+        }
         span {
           color: gris(60);
           text-decoration: line-through;
@@ -147,6 +165,22 @@
         }
         @include break(sm-mw) {
           flex-wrap: wrap;
+        }
+      }
+      &__desc {
+        &.placeholder--child {
+          background: rgba(gris(70), 0.4);
+          height: 1.6rem;
+          margin-bottom: 2rem;
+        }
+      }
+      &__btn {
+        &.placeholder--child {
+          display: inline-flex;
+          background: var(--primario);
+          height: 5rem;
+          border-radius: 6px;
+          width: 200px;
         }
       }
     }

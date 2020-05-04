@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../../services';
-import { DetalleProducto } from '../Templates';
+import { DetalleProducto, DetalleProductoPlaceholder, PageLoading } from '../Templates';
 
-const Detalle = props => {
+const Detalle = () => {
   let { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [producto, setProducto] = useState([]);
@@ -19,7 +19,7 @@ const Detalle = props => {
     loadProduct();
   }, [slug]);
 
-  return loading ? <></> : <DetalleProducto data={producto} />;
+  return loading ? <PageLoading content={DetalleProductoPlaceholder}/> : <DetalleProducto data={producto} />;
 };
 
 export default Detalle;

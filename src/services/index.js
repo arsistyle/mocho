@@ -1,5 +1,4 @@
 import wpapi from 'wpapi';
-
 const wp_base = process.env.REACT_APP_BASE_URL;
 
 const WP = new wpapi({
@@ -12,9 +11,8 @@ const WP = new wpapi({
 WP.productos = WP.registerRoute('wp/v2', '/productos/(?P<id>\\d+)');
 WP.compras = WP.registerRoute('wp/v2', '/compras/(?P<id>\\d+)');
 
-
 /*
-wp.compras()
+WP.compras()
   .create({
     title: 'Compra ' + new Date().getTime(),
     content: `
@@ -24,12 +22,12 @@ wp.compras()
         </figure>
         <p>Cualquier wea</p>
       `,
-    status: 'publish',
+    status: 'pending',
     
   })
   .then((x) => {
     console.log(x);
-    wp.compras()
+    WP.compras()
       .id(x.id)
       .update({
         meta: {
@@ -42,7 +40,9 @@ wp.compras()
 export async function getHeader() {
   WP.header = WP.registerRoute('acf/v3/options', '/header/');
   try {
-    const response = await WP.header().get().then(x => x)
+    const response = await WP.header()
+      .get()
+      .then((x) => x);
     return response;
   } catch (e) {
     console.log(e);
@@ -52,7 +52,9 @@ export async function getHeader() {
 export async function getMenu(menu) {
   WP.menu = WP.registerRoute('menus/v1/menus', `/${menu}/`);
   try {
-    const response = await WP.menu().get().then(x => x)
+    const response = await WP.menu()
+      .get()
+      .then((x) => x);
     return response;
   } catch (e) {
     console.log(e);
@@ -73,10 +75,11 @@ export async function getHero() {
 
 export async function getPage(slug) {
   WP.page = WP.registerRoute('wp/v2', `/pages/`, {
-    params: ['slug']
+    params: ['slug'],
   });
   try {
-    const response = await WP.page().slug(slug)
+    const response = await WP.page()
+      .slug(slug)
       .get()
       .then((x) => x);
     return response;
@@ -85,12 +88,23 @@ export async function getPage(slug) {
   }
 }
 
-export async function getProducts(id) {
+export async function getProducts(id, total = 100) {
   WP.products = WP.registerRoute('wp/v2', `/productos/`, {
-    params: ['categories'],
+    params: ['categories', 'per_page'],
   });
+
   try {
-    const response = await (id ? WP.products().categories(id).get().then((x) => x) : WP.products().categories(id).get().then((x) => x));
+    const response = await (id
+      ? WP.products()
+          .categories(id)
+          .per_page(total)
+          .get()
+          .then((x) => x)
+      : WP.products()
+          .categories(id)
+          .per_page(total)
+          .get()
+          .then((x) => x));
     return response;
   } catch (e) {
     console.log(e);

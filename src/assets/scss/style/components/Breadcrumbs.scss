@@ -1,6 +1,7 @@
 @import '../style';
 .breadcrumbs {
   display: flex;
+  flex-wrap: wrap;
   background: blanco(1);
   height: 80px;
   align-items: center;
@@ -8,6 +9,10 @@
   position: relative;
   z-index: 2;
   box-shadow: 0 0 50px negro(0.1);
+  @include break(md-mw) {
+    padding: 1.5rem;
+    height: auto;
+  }
   &__item {
     display: flex;
     align-items: center;

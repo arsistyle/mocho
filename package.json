@@ -41,6 +41,7 @@
     "fslightbox-react": "^1.4.9",
     "react-cool-img": "^1.0.24",
     "react-router-dom": "^5.1.2",
+    "superagent": "^5.2.2",
     "wpapi": "^1.2.1"
   }
 }

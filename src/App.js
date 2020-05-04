@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-route
 import { getMenu } from './services';
 import Header from './components/Header';
 import Home from './components/Home';
-import PageProductos from './components/Productos/Page';
-import Detalle from './components/Productos/Detalle';
+import Productos, { Detalle } from './components/Productos';
 import Footer from './components/Footer';
+import Error404 from './components/Error404';
 import './assets/scss/ars1/ars1.scss';
 
 function ScrollToTop() {
@@ -13,18 +13,17 @@ function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.querySelector('.header').classList.remove('header--active');
   }, [pathname]);
 
   return null;
 }
 
-const error404 = () => <h1>Error 404</h1>;
-
 const COMPONENTES = {
   Home,
-  PageProductos,
+  Productos,
   Detalle,
-  error404
+  Error404,
 };
 
 const ROUTES = (data) => {
@@ -33,10 +32,9 @@ const ROUTES = (data) => {
       path: '/productos',
       slug: 'productos',
       exact: true,
-      component: PageProductos,
+      component: Productos,
     },
     data.map((x) => {
-      // console.log(x);
       return [
         x['post_status'] === 'publish'
           ? x['child_items']?.length
@@ -64,7 +62,6 @@ const ROUTES = (data) => {
       ];
     }),
   ];
-  // console.log(routes.flat(3));
   return routes.flat(3).filter(Boolean);
 };
 
@@ -82,7 +79,6 @@ function App() {
     }
     loadMenu();
   }, []);
-
   return (
     <main className='App'>
       <Router>
@@ -95,7 +91,7 @@ function App() {
             })}
         </Switch>
       </Router>
-      <Footer/>
+      <Footer />
     </main>
   );
 }
