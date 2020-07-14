@@ -43,7 +43,7 @@ const Productos = (props) => {
   return (
     <div className='row'>
       {!loading ? (
-        productos.map((item, i) => (
+        productos.filter(x => Number(x.acf.stock) > 0).map((item, i) => (
           <LazyLoad key={i}>
             <Item data={item} />
           </LazyLoad>

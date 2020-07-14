@@ -5,7 +5,7 @@ const WP = new wpapi({
   endpoint: wp_base,
   username: process.env.REACT_APP_AUTH_USER,
   password: process.env.REACT_APP_AUTH_PASS,
-  auth: true,
+  // auth: false
 });
 
 WP.productos = WP.registerRoute('wp/v2', '/productos/(?P<id>\\d+)');

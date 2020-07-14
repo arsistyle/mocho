@@ -46,7 +46,7 @@ export const Detalle = () => {
       if (response) {
         setProducto(response[0]);
         setLoading(false);
-        console.log(response);
+        // console.log(response);
       }
     }
     loadProduct();
@@ -100,7 +100,7 @@ export const Detalle = () => {
               <div className='page__content admin-content'>
                 <div className='row'>
                   <div className='col-xs-12 col-md-5'>
-                    <div className='productos__detalle__imagen' onClick={() => setToggler(!toggler)}>
+                    <div className={`productos__detalle__imagen ${acf.galeria ? 'productos__detalle__imagen--galeria' : ''}`} onClick={() => setToggler(!toggler)}>
                       <div className='productos__tags'>
                         {acf.nuevo && <div className='productos__tags__item productos__tags__item--nuevo'>Nuevo</div>}
                         {acf.oferta && <div className='productos__tags__item productos__tags__item--oferta'>Oferta</div>}
@@ -162,7 +162,7 @@ export const Detalle = () => {
     }
   };
 
-  return loading ? <PageLoading content={Load} /> : <Content />;
+  return producto ? (loading ? <PageLoading content={Load} /> : <Content />) : <Error404 />;
 };
 
 export const Item = ({ data }) => {
@@ -248,13 +248,14 @@ export const ListaProductos = ({ id, totalItems }) => {
 
   return (
     <div className='row'>
-      {!loading && (
-        productos.map((item, i) => (
-          <LazyLoad key={i} placeholder={<Placeholder />}>
-            <Item data={item} />
-          </LazyLoad>
-        ))
-      )}
+      {!loading &&
+        productos
+          .filter((x) => Number(x.acf.stock) > 0)
+          .map((item, i) => (
+            <LazyLoad key={i} placeholder={<Placeholder />}>
+              <Item data={item} />
+            </LazyLoad>
+          ))}
       {!loading && !productos.length && (
         <div className='col-xs-12'>
           <div className='alerta alerta--aviso'>Estamos sin stock en esta categoría</div>

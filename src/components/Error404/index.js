@@ -11,7 +11,7 @@ const Error404 = ({ error, desc }) => (
     </div>
     <div className='error404__content'>
       <h1 className='error404__title'>{error ? error : '404'}</h1>
-      <p className='error404__desc'>{desc ? desc : 'La URl ingresada no existe.'}</p>
+      <p className='error404__desc'>{desc ? desc : 'La URL ingresada no existe.'}</p>
       <Link to='/' className='btn btn--primario btn--borde'>
         Ir al inicio
       </Link>
