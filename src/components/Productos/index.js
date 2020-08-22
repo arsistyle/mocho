@@ -137,7 +137,10 @@ export const Detalle = () => {
                       </div>
                       {acf.stock && (
                         <a
-                          href={`${process.env.REACT_APP_WSP}Hola gente de Mocho, Quiero comprar las calcetas *${title.rendered} - ${MILES(acf.precio, '$')}* ${acf['extra_data']} ${acf.imagen}`}
+                          href={`${process.env.REACT_APP_WSP}Hola+gente+de+Mocho%2C%0D%0AQuiero+comprar+las+calcetas%3A%0D%0A%2A${title.rendered.replace('&#8211;', '-')}%2A%0D%0A%2A${MILES(
+                            acf.precio,
+                            '$'
+                          )}%2A%0D%0A${acf.extra_data}%0D%0A${acf.imagen}`}
                           className='btn btn--primario productos__detalle__info__btn'
                           target='_blank'
                           rel='noopener noreferrer'
@@ -162,7 +165,7 @@ export const Detalle = () => {
     }
   };
 
-  return producto ? (loading ? <PageLoading content={Load} /> : <Content />) : <Error404 />;
+  return producto ? loading ? <PageLoading content={Load} /> : <Content /> : <Error404 />;
 };
 
 export const Item = ({ data }) => {
@@ -185,7 +188,7 @@ export const Item = ({ data }) => {
           {acf.oferta && <div className='productos__tags__item productos__tags__item--oferta'>Oferta</div>}
           {Number(acf.stock) === 1 && <div className='productos__tags__item productos__tags__item--ultimo'>Último</div>}
         </div>
-        <div className='productos__image'>{loading ? <img className="fadeIn" src={`${loading === 200 ? image.src : imageError}`} alt={name} /> : <img src={imageError} alt={name} />}</div>
+        <div className='productos__image'>{loading ? <img className='fadeIn' src={`${loading === 200 ? image.src : imageError}`} alt={name} /> : <img src={imageError} alt={name} />}</div>
         <div className='productos__info'>
           <h3 className='productos__title' dangerouslySetInnerHTML={{ __html: title.rendered }}></h3>
           <h4 className='productos__valor color--secundario'>

@@ -136,7 +136,8 @@ export const DetalleProducto = (props) => {
                     </div>
                     {acf.stock && (
                       <a
-                        href={`${process.env.REACT_APP_WSP}Hola gente de Mocho, Quiero comprar las calcetas *${title.rendered} - ${MILES(acf.precio, '$')}* ${acf['extra_data']} ${acf.imagen}`}
+                        // href={`${process.env.REACT_APP_WSP}Hola gente de Mocho, Quiero comprar las calcetas *${title.rendered} - ${MILES(acf.precio, '$')}* ${acf['extra_data']} ${acf.imagen}`}
+                        href={`${process.env.REACT_APP_WSP}*${title.rendered} - ${MILES(acf.precio, '$')}* ${acf['extra_data']} ${acf.imagen}`}
                         className='btn btn--primario productos__detalle__info__btn'
                         target='_blank'
                         rel='noopener noreferrer'

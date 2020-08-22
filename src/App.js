@@ -87,6 +87,7 @@ function App() {
         <Switch>
           {!loading &&
             ROUTES(menu).map((x, i) => {
+              // console.log(x);
               return x.component && <Route key={i} path={x.path} exact={x.exact} render={({ match }) => <x.component id={x.id} match={match} slug={x.slug} {...x.extras} />} />;
             })}
         </Switch>

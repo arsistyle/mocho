@@ -3,39 +3,16 @@ const wp_base = process.env.REACT_APP_BASE_URL;
 
 const WP = new wpapi({
   endpoint: wp_base,
-  username: process.env.REACT_APP_AUTH_USER,
-  password: process.env.REACT_APP_AUTH_PASS,
-  // auth: false
 });
+
+// WP.setHeaders({
+//   'Cache-Control': 'max-age=3600'
+// });
+
+console.log(WP);
 
 WP.productos = WP.registerRoute('wp/v2', '/productos/(?P<id>\\d+)');
 WP.compras = WP.registerRoute('wp/v2', '/compras/(?P<id>\\d+)');
-
-/*
-WP.compras()
-  .create({
-    title: 'Compra ' + new Date().getTime(),
-    content: `
-        <figure class="wp-block-image size-large">
-          <img src="https://admin.mochostore.cl/wp-content/uploads/2020/04/batman.jpg" alt=""/>
-          <figcaption>nombre de la wea</figcaption>
-        </figure>
-        <p>Cualquier wea</p>
-      `,
-    status: 'pending',
-    
-  })
-  .then((x) => {
-    console.log(x);
-    WP.compras()
-      .id(x.id)
-      .update({
-        meta: {
-          imagen: 'https://admin.mochostore.cl/wp-content/uploads/2020/04/batman.jpg',
-        },
-      });
-  });
-*/
 
 export async function getHeader() {
   WP.header = WP.registerRoute('acf/v3/options', '/header/');
@@ -96,11 +73,13 @@ export async function getProducts(id, total = 100) {
   try {
     const response = await (id
       ? WP.products()
+          .param('timestamp', Date.now())
           .categories(id)
           .per_page(total)
           .get()
           .then((x) => x)
       : WP.products()
+          .param('timestamp', Date.now())
           .categories(id)
           .per_page(total)
           .get()
@@ -117,6 +96,7 @@ export async function getProduct(slug) {
   });
   try {
     const response = await WP.producto()
+      .param('timestamp', Date.now())
       .slug(slug)
       .get()
       .then((x) => x);
