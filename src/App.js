@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-route
 import { getMenu } from './services';
 import Header from './components/Header';
 import Home from './components/Home';
-import Productos, { Detalle } from './components/Productos';
+import Productos from './components/Productos';
+import Detalle from './components/Productos/Detalle';
 import Footer from './components/Footer';
 import Error404 from './components/Error404';
 import './assets/scss/ars1/ars1.scss';

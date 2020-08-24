@@ -135,6 +135,22 @@ export const Detalle = () => {
                           </tbody>
                         </table>
                       </div>
+                      {acf?.colores?.length > 1 && (
+                        <div className='productos__colores productos__colores--detalle'>
+                          {acf.colores.map((x) => {
+                            return (
+                              <label className='productos__colores__item' key={x.color} title={x.nombre_color} for={x.nombre_color}>
+                                <input type='radio' name={slug} id={x.nombre_color} />
+                                <span
+                                  style={{
+                                    backgroundColor: x.color,
+                                  }}
+                                ></span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      )}
                       {acf.stock && (
                         <a
                           href={`${process.env.REACT_APP_WSP}Hola+gente+de+Mocho%2C%0D%0AQuiero+comprar+las+calcetas%3A%0D%0A%2A${title.rendered.replace('&#8211;', '-')}%2A%0D%0A%2A${MILES(
@@ -189,6 +205,21 @@ export const Item = ({ data }) => {
           {Number(acf.stock) === 1 && <div className='productos__tags__item productos__tags__item--ultimo'>Último</div>}
         </div>
         <div className='productos__image'>{loading ? <img className='fadeIn' src={`${loading === 200 ? image.src : imageError}`} alt={name} /> : <img src={imageError} alt={name} />}</div>
+        {acf?.colores?.length > 1 && (
+          <div className='productos__colores'>
+            {acf.colores.map((x) => {
+              return (
+                <div className='productos__colores__item' key={x.color} title={x.nombre_color}>
+                  <span
+                    style={{
+                      backgroundColor: x.color,
+                    }}
+                  ></span>
+                </div>
+              );
+            })}
+          </div>
+        )}
         <div className='productos__info'>
           <h3 className='productos__title' dangerouslySetInnerHTML={{ __html: title.rendered }}></h3>
           <h4 className='productos__valor color--secundario'>
