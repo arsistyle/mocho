@@ -6,10 +6,11 @@ import Item from './Item';
 
 import '../../assets/scss/style/components/Productos.scss';
 
-const Productos = (props) => {
-  let { id, totalItems } = props;
+const Productos = ({ id, totalItems }) => {
   const [loading, setLoading] = useState(true);
   const [productos, setProductos] = useState([]);
+
+  // console.log(props);
 
   useEffect(() => {
     async function loadProducts() {
@@ -43,11 +44,13 @@ const Productos = (props) => {
   return (
     <div className='row'>
       {!loading ? (
-        productos.filter(x => Number(x.acf.stock) > 0).map((item, i) => (
-          <LazyLoad key={i}>
-            <Item data={item} />
-          </LazyLoad>
-        ))
+        productos
+          .filter((x) => Number(x.acf.stock) > 0)
+          .map((item, i) => (
+            <LazyLoad key={i}>
+              <Item data={item} />
+            </LazyLoad>
+          ))
       ) : (
         <>{items}</>
       )}

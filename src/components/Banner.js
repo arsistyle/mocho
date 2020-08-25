@@ -6,11 +6,13 @@ import React from 'react';
 /**
  * ASSETS
  */
-import '../../assets/scss/style/components/Banner.scss';
+import '../assets/scss/style/components/Banner.scss';
 
 const Banner = ({ imagen, title, subtitle, container, placeholder }) => {
   return (
-    <div className={`banner ${placeholder ? 'placeholder--child' : ''}`} style={container ? { height: '70vh' } : { height: '40vh' }}>
+    <div
+      className={`banner ${placeholder ? 'placeholder--child' : ''}`}
+      style={container ? { height: '70vh' } : { height: '40vh' }}>
       {imagen ? <img src={imagen} alt={title} /> : ''}
       {container && (
         <div className='banner__container'>

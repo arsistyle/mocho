@@ -236,6 +236,8 @@ export const ListaProductos = ({ id, totalItems }) => {
   const [loading, setLoading] = useState(true);
   const [productos, setProductos] = useState([]);
 
+  console.log(id);
+
   useEffect(() => {
     async function loadProducts() {
       const response = await getProducts(id, totalItems && Number(totalItems));

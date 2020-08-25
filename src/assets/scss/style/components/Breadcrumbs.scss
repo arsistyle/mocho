@@ -23,6 +23,13 @@
         height: 1.4rem;
       }
     }
+    &--placeholder {
+      display: inline-flex;
+      width: 10rem;
+      height: 1.8rem;
+      margin-right: 1rem;
+      background: negro(.1);
+    }
   }
   &__link {
     font-size: 1.6rem;

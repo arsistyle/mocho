@@ -9,7 +9,7 @@ const WP = new wpapi({
 //   'Cache-Control': 'max-age=3600'
 // });
 
-console.log(WP);
+// console.log(WP);
 
 WP.productos = WP.registerRoute('wp/v2', '/productos/(?P<id>\\d+)');
 WP.compras = WP.registerRoute('wp/v2', '/compras/(?P<id>\\d+)');
@@ -67,21 +67,23 @@ export async function getPage(slug) {
 
 export async function getProducts(id, total = 100) {
   WP.products = WP.registerRoute('wp/v2', `/productos/`, {
-    params: ['categories', 'per_page'],
+    params: ['categories', 'timestamp', 'per_page'],
   });
+
+  // console.log('slug', slug);
+  // console.log(id);
 
   try {
     const response = await (id
       ? WP.products()
-          .param('timestamp', Date.now())
           .categories(id)
           .per_page(total)
+          .timestamp(Date.now())
           .get()
           .then((x) => x)
       : WP.products()
-          .param('timestamp', Date.now())
-          .categories(id)
           .per_page(total)
+          .timestamp(Date.now())
           .get()
           .then((x) => x));
     return response;

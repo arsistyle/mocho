@@ -15,7 +15,7 @@ const Item = (props) => {
     setImage(400);
   };
 
-  console.log(title, acf);
+  // console.log(title, acf);
 
   return (
     <div className='col-xs-6 col-sm-4 col-md-3'>

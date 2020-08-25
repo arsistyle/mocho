@@ -1,5 +1,5 @@
 export const MILES = (numero, antecesor = '') => {
-  let valor = numero.replace(/\./g, '');
+  let valor = numero.toString().replace(/\./g, '');
   valor = valor
     .toString()
     .split('')

@@ -9,6 +9,7 @@ import Breadcrumb from '../Breadcrumbs';
 import Galeria from '../Galeria';
 import { MILES } from '../../ars1';
 
+
 const Detalle = () => {
   let { slug } = useParams();
   const [loading, setLoading] = useState(true);

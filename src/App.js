@@ -4,9 +4,10 @@ import { getMenu } from './services';
 import Header from './components/Header';
 import Home from './components/Home';
 import Productos from './components/Productos';
-import Detalle from './components/Productos/Detalle';
+// import Categoria from './components/Productos--Categoria';
+import ProductosDetalle from './components/Productos--Detalle';
 import Footer from './components/Footer';
-import Error404 from './components/Error404';
+// import Error404 from './components/Error404';
 import './assets/scss/ars1/ars1.scss';
 
 function ScrollToTop() {
@@ -23,12 +24,19 @@ function ScrollToTop() {
 const COMPONENTES = {
   Home,
   Productos,
-  Detalle,
-  Error404,
+  // Categoria,
+  ProductosDetalle,
+  // Error404,
 };
 
 const ROUTES = (data) => {
   let routes = [
+    {
+      path: '/',
+      slug: 'inicio',
+      exact: true,
+      component: Home,
+    },
     {
       path: '/productos',
       slug: 'productos',
@@ -37,13 +45,12 @@ const ROUTES = (data) => {
     },
     data.map((x) => {
       return [
-        x['post_status'] === 'publish'
+        x['post_status'] === 'publish' && x.path !== '/'
           ? x['child_items']?.length
             ? x['child_items'].map((x, i) => {
                 return {
                   path: x.path,
                   slug: x.slug,
-                  id: Number(x._id),
                   component: COMPONENTES[x.componente],
                   childrens: x['child_items'] && true,
                   extras: x['extras'] && { ...x['extras'] },
@@ -53,7 +60,6 @@ const ROUTES = (data) => {
             : {
                 path: x.path,
                 slug: x.slug,
-                id: Number(x._id),
                 component: COMPONENTES[x.componente],
                 childrens: x['child_items'] && true,
                 extras: x['extras'] && { ...x['extras'] },
@@ -80,6 +86,7 @@ function App() {
     }
     loadMenu();
   }, []);
+
   return (
     <main className='App'>
       <Router>
@@ -88,8 +95,24 @@ function App() {
         <Switch>
           {!loading &&
             ROUTES(menu).map((x, i) => {
-              // console.log(x);
-              return x.component && <Route key={i} path={x.path} exact={x.exact} render={({ match }) => <x.component id={x.id} match={match} slug={x.slug} {...x.extras} />} />;
+              let extras = {};
+              for (const key in x.extras) {
+                const el = x.extras[key];
+                extras[el.propiedad] = el.valor;
+              }
+              return (
+                x.component && (
+                  <Route
+                    key={i}
+                    path={x.path}
+                    exact={x.exact}
+                    // render={({ match }) => <x.component match={match} slug={x.slug} />}
+                    {...extras}>
+                    <x.component slug={x.slug}></x.component>
+                  </Route>
+                )
+              );
+              // return x.component && <Route key={i} path={x.url} exact={x.exact} render={({ match }) => <x.component match={match} slug={x.slug} />} {...extras} />;
             })}
         </Switch>
       </Router>
