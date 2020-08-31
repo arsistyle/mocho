@@ -76,7 +76,7 @@ export async function getProducts(id, total = 100) {
   try {
     const response = await (id
       ? WP.products()
-          .categories(id)
+          .categories(id.split('.'))
           .per_page(total)
           .timestamp(Date.now())
           .get()
@@ -100,6 +100,25 @@ export async function getProduct(slug) {
     const response = await WP.producto()
       .param('timestamp', Date.now())
       .slug(slug)
+      .get()
+      .then((x) => x);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getColecciones(total = 100, order = null) {
+  WP.collections = WP.registerRoute('wp/v2', `/colecciones/`, {
+    params: ['timestamp', 'per_page'],
+  });
+
+  try {
+    const response = await WP.collections()
+      // .filter('order', order)
+      // .order('asc')
+      .per_page(total)
+      .timestamp(Date.now())
       .get()
       .then((x) => x);
     return response;

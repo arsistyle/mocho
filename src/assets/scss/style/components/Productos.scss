@@ -1,4 +1,5 @@
-@import '../style';
+@import '../helpers.scss';
+
 .productos {
   $t: &;
   &__item {
@@ -21,19 +22,26 @@
   &__tags {
     grid-area: 1/1;
     display: flex;
-    justify-content: flex-end;
     align-items: flex-start;
     z-index: 1;
-    padding: 0 0.5rem;
+    padding: 1rem;
+    &__content {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
     &__item {
       display: inline-flex;
-      padding: 0.5rem 1rem;
+      padding: 0.3rem .5rem;
       text-transform: uppercase;
       font-weight: 700;
-      font-size: 1.4rem;
+      font-size: 1rem;
+      letter-spacing: .1rem;
       color: blanco(1);
-      border-radius: 6px;
-      margin: 1rem 0.5rem;
+      border-radius: 3px;
+      margin: 0 0 .5rem .5rem;
+      white-space: nowrap;
       &--oferta {
         background: var(--primario);
       }
@@ -70,7 +78,7 @@
     }
   }
   &__info {
-    padding: 3rem;
+    padding: 1.5rem;
     // padding-top: 0;
     display: flex;
     flex-direction: column;
@@ -89,7 +97,6 @@
     align-items: flex-end;
     z-index: 1;
     padding: 0 0.5rem 0.5rem;
-    margin: 0 -0.5rem;
     &__item {
       width: 2.5rem;
       height: 2.5rem;
@@ -109,6 +116,7 @@
       }
     }
     &--detalle {
+      margin: 0 -0.5rem;
       margin-bottom: 3rem;
       padding: 0;
       #{$t}__item {
@@ -124,7 +132,8 @@
     margin: 0;
     margin-bottom: 1rem;
     line-height: 1;
-    font-size: 2rem;
+    font-size: 1.6rem;
+    // font-weight: 400;
     span {
       display: block;
       width: 100%;

@@ -4,11 +4,13 @@ import { getMenu } from './services';
 import Header from './components/Header';
 import Home from './components/Home';
 import Productos from './components/Productos';
+import Colecciones from './components/Colecciones';
 // import Categoria from './components/Productos--Categoria';
 import ProductosDetalle from './components/Productos--Detalle';
 import Footer from './components/Footer';
 // import Error404 from './components/Error404';
 import './assets/scss/ars1/ars1.scss';
+import './assets/scss/style/style.scss';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,6 +28,7 @@ const COMPONENTES = {
   Productos,
   // Categoria,
   ProductosDetalle,
+  Colecciones,
   // Error404,
 };
 

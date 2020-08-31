@@ -1,6 +1,13 @@
 import React from 'react';
 import Banner from './Banner';
 
+export const PHBreadcrumbs = () => (
+  <div className='breadcrumbs breadcrumbs--placeholder'>
+    <div className='breadcrumbs__item breadcrumbs__item--placeholder placeholder--child'></div>
+    <div className='breadcrumbs__item breadcrumbs__item--placeholder placeholder--child'></div>
+  </div>
+);
+
 export const PHHome = () => (
   <>
     <section className='hero placeholder'>
@@ -54,10 +61,7 @@ export const PHProductos = () => (
     <Banner placeholder container />
     <div className='container-fluid'>
       <div className='frame'>
-        <div className='breadcrumbs breadcrumbs--placeholder'>
-          <div className='breadcrumbs__item breadcrumbs__item--placeholder placeholder--child'></div>
-          <div className='breadcrumbs__item breadcrumbs__item--placeholder placeholder--child'></div>
-        </div>
+        <PHBreadcrumbs />
         <div className='page__content page__content--loading'>
           <PHProductosLista />
         </div>
@@ -85,6 +89,34 @@ export const PHProductosDetalle = () => (
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+export const PHColeccionesLista = ({ total = 2 }) => {
+  const items = [];
+  for (let i = 0; i < total; i++) {
+    items.push(
+      <div className='col-xs-12 col-md-6' key={i}>
+        <div className='colecciones__item placeholder'>
+          <div className='colecciones__image colecciones__image--placeholder placeholder--child'></div>
+        </div>
+      </div>
+    );
+  }
+  return <div className='row'>{items}</div>;
+};
+
+export const PHColecciones = () => (
+  <section className='page'>
+    <Banner placeholder container />
+    <div className='container-fluid'>
+      <div className='frame'>
+        <PHBreadcrumbs />
+        <div className='page__content page__content--loading'>
+          <PHColeccionesLista />
         </div>
       </div>
     </div>

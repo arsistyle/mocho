@@ -1,4 +1,4 @@
-@import '../style';
+@import '../helpers.scss';
 .error404 {
   flex: 1;
   display: flex;
@@ -8,8 +8,8 @@
   padding: var(--header) 1.5rem;
   position: relative;
   &__bg {
-    @include posicion(absolute,0,0,0,0);
-    opacity: .1;
+    @include posicion(absolute, 0, 0, 0, 0);
+    opacity: 0.1;
     img {
       display: block;
       width: 100%;

@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { IoIosArrowForward, IoLogoWhatsapp } from 'react-icons/io';
 import { AiOutlineZoomIn } from 'react-icons/ai';
 
+import Image from './Image';
+
 import { getProduct } from '../services';
 
 import { PHProductosDetalle } from './Placeholders';
@@ -100,7 +102,6 @@ const Detalle = () => {
                 <div className='col-xs-12 col-md-5'>
                   <div className='productos__detalle__imagen'>
                     <img src={imageError} alt='' />
-  
                   </div>
                 </div>
                 <div className='col-xs-12 col-md-7'>
@@ -110,7 +111,7 @@ const Detalle = () => {
                       Haz ingresado una URL de un producto que no tenemos o que no existe, vuelve a
                       navegar en nuestro catálogo.
                     </p>
-                    <div className="separador--big"></div>
+                    <div className='separador--big'></div>
                     <Link
                       to='/productos'
                       className='btn btn--primario productos__detalle__info__btn'>
@@ -165,7 +166,9 @@ const Detalle = () => {
                         </div>
                       )}
                     </div>
-                    <img src={producto?.acf?.imagen} alt='' />
+
+                    <Image src={producto?.acf?.imagen} alt={producto?.title.rendered} />
+
                     {producto?.acf?.galeria && (
                       <div className='productos__detalle__zoom'>
                         <AiOutlineZoomIn />

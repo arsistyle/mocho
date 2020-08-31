@@ -1,0 +1,59 @@
+@import '../helpers.scss';
+
+.colecciones {
+  $t: &;
+  &__item {
+    margin-bottom: 3rem;
+    display: grid;
+    text-decoration: none;
+    overflow: hidden;
+  }
+  &__image {
+    position: relative;
+    padding-bottom: 50%;
+    grid-area: 1/1;
+    img {
+      @include posicion(absolute, 0, 0, 0, 0);
+      display: block;
+      width: 100%;
+    }
+    &--placeholder {
+      padding-bottom: 50%;
+      background: rgba(gris(70), 0.2);
+    }
+  }
+  &__info {
+    grid-area: 1/1;
+    z-index: 1;
+    padding: 3rem;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(180deg, rgba(245, 82, 85, 0.4) 0%, rgba(245, 82, 85, 1) 100%);
+    @include hover(fine) {
+      opacity: 0;
+      @include transicion;
+    }
+  }
+  &__title {
+    margin: 0;
+    color: blanco(1);
+    @include hover(fine) {
+      transform: translateY(20px);
+      opacity: 0;
+      @include transicion;
+    }
+  }
+  &__item {
+    @include hover(fine) {
+      &:hover {
+        #{$t}__info {
+          opacity: 1;
+        }
+        #{$t}__title {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

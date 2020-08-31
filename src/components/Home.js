@@ -5,6 +5,7 @@ import { PHHome } from './Placeholders';
 
 /** COMPONENTS **/
 import Hero from './Hero';
+import Colecciones from './Colecciones--Lista';
 import Productos from './Productos--Lista';
 
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
       if (response) {
         setPage(response[0]);
         setLoading(true);
-        console.log(response[0].acf);
+        // console.log(response[0].acf);
       }
     }
     loadHome();
@@ -25,10 +26,25 @@ const Home = () => {
     <PHHome />
   ) : (
     <>
-      <Hero title={page.acf.titulo} images={{
-        desktop: page.acf.imagen_desktop,
-        mobile: page.acf.imagen_mobile
-      }} />
+      <Hero
+        title={page.acf.titulo}
+        images={{
+          desktop: page.acf.imagen_desktop,
+          mobile: page.acf.imagen_mobile,
+        }}
+      />
+      <div className='container-fluid'>
+        <div className='frame'>
+          <h2 className='text-align-center-xs fadeInDown'>Colecciones</h2>
+          <Colecciones totalItems={2} order='rand' />
+          <div className='text-align-center-xs text-align-right-md'>
+            <Link to='/colecciones' className='btn btn--secundario btn--borde'>
+              Ver todas
+            </Link>
+            <div className='separador'></div>
+          </div>
+        </div>
+      </div>
       <div className='container-fluid productos' id='productos'>
         <div className='frame'>
           <h2 className='text-align-center-xs fadeInDown'>Últimos productos</h2>
