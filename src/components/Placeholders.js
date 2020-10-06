@@ -1,6 +1,19 @@
 import React from 'react';
 import Banner from './Banner';
 
+export const PHHero = () => (
+  <section className='hero placeholder'>
+    <div className='hero__bg placeholder--child'></div>
+    <div className='hero__container'>
+      <div className='hero__title placeholder'>
+        <span className='placeholder--child'></span>
+        <span className='placeholder--child'></span>
+      </div>
+      <div className='hero__btn hero__btn--placeholder placeholder--child'></div>
+    </div>
+  </section>
+);
+
 export const PHBreadcrumbs = () => (
   <div className='breadcrumbs breadcrumbs--placeholder'>
     <div className='breadcrumbs__item breadcrumbs__item--placeholder placeholder--child'></div>
@@ -122,3 +135,5 @@ export const PHColecciones = () => (
     </div>
   </section>
 );
+
+export default <></>;

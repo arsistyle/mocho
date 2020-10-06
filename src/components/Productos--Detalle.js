@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { IoIosArrowForward, IoLogoWhatsapp } from 'react-icons/io';
-import { AiOutlineZoomIn } from 'react-icons/ai';
 
 import Image from './Image';
 
@@ -21,7 +20,7 @@ const Detalle = () => {
   const [loading, setLoading] = useState(true);
   const [producto, setProducto] = useState([]);
   const [galeria, setGaleria] = useState([]);
-  const [toggler, setToggler] = useState(false);
+  // const [toggler, setToggler] = useState(false);
   const [precios, setPrecios] = useState({
     actual: 0,
     anterior: 0,
@@ -31,7 +30,10 @@ const Detalle = () => {
   const [options, setOptions] = useState({});
 
   const handleItem = (el) => {
-    const i = el.currentTarget.getAttribute('data-i');
+    const i = Number(el.currentTarget.getAttribute('data-i'));
+    const colors = document.querySelectorAll('.productos__colores__item');
+    colors.forEach((x) => x.classList.remove('productos__colores__item--active'));
+    el.currentTarget.classList.add('productos__colores__item--active');
     setPrecios({
       actual: producto?.acf?.colores[i].precio,
       anterior: producto?.acf?.colores[i].precio_anterior,
@@ -78,7 +80,7 @@ const Detalle = () => {
     }
     loadProduct();
     if (producto.state) setLoading(false);
-  }, [options, producto, slug]);
+  }, [producto, slug]);
 
   return !loading ? (
     producto.state === 'no_encontrado' ? (
@@ -126,7 +128,6 @@ const Detalle = () => {
       </section>
     ) : (
       <section className='page'>
-        {producto?.acf?.galeria && <Galeria data={galeria} toggler={toggler} />}
         <Banner imagen={producto?.acf?.imagen} />
         <div className='container-fluid'>
           <div className='frame'>
@@ -147,8 +148,7 @@ const Detalle = () => {
                   <div
                     className={`productos__detalle__imagen ${
                       producto?.acf?.galeria ? 'productos__detalle__imagen--galeria' : ''
-                    }`}
-                    onClick={() => setToggler(!toggler)}>
+                    }`}>
                     <div className='productos__tags'>
                       {producto?.acf?.nuevo && (
                         <div className='productos__tags__item productos__tags__item--nuevo'>
@@ -167,12 +167,10 @@ const Detalle = () => {
                       )}
                     </div>
 
-                    <Image src={producto?.acf?.imagen} alt={producto?.title.rendered} />
-
-                    {producto?.acf?.galeria && (
-                      <div className='productos__detalle__zoom'>
-                        <AiOutlineZoomIn />
-                      </div>
+                    {galeria.length > 1 ? (
+                      <Galeria data={galeria} className='productos__galeria' slug={slug} />
+                    ) : (
+                      <Image src={producto?.acf?.imagen} alt={producto?.title.rendered} />
                     )}
                   </div>
                 </div>
@@ -216,23 +214,19 @@ const Detalle = () => {
                             .filter((x) => x.stock > 0)
                             .map((x, i) => {
                               return (
-                                <label
+                                <a
+                                  href={`#${slug}${i + 1}`}
                                   className='productos__colores__item'
-                                  key={x.color}
-                                  title={x.nombre_color}
-                                  htmlFor={x.nombre_color}>
-                                  <input
-                                    type='radio'
-                                    name={slug}
-                                    id={x.nombre_color}
-                                    onChange={handleItem}
-                                    data-i={i}
-                                  />
+                                  onClick={handleItem}
+                                  name={slug}
+                                  id={x.nombre_color}
+                                  data-i={i}
+                                  key={i}>
                                   <span
                                     style={{
                                       backgroundColor: x.color,
                                     }}></span>
-                                </label>
+                                </a>
                               );
                             })}
                         </div>

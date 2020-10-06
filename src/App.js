@@ -4,7 +4,6 @@ import { getMenu } from './services';
 import Header from './components/Header';
 import Home from './components/Home';
 import Productos from './components/Productos';
-import Colecciones from './components/Colecciones';
 // import Categoria from './components/Productos--Categoria';
 import ProductosDetalle from './components/Productos--Detalle';
 import Footer from './components/Footer';
@@ -28,7 +27,6 @@ const COMPONENTES = {
   Productos,
   // Categoria,
   ProductosDetalle,
-  Colecciones,
   // Error404,
 };
 

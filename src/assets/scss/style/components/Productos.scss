@@ -20,11 +20,12 @@
     }
   }
   &__tags {
-    grid-area: 1/1;
+    // grid-area: 1/1;
     display: flex;
     align-items: flex-start;
-    z-index: 1;
     padding: 1rem;
+    @include posicion(absolute,0,0,null,0);
+    z-index: 2;
     &__content {
       width: 100%;
       display: flex;
@@ -83,7 +84,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    grid-area: 2/1;
+    grid-area: 3/1;
     z-index: 1;
     @include break(lg-mw) {
       padding: 2rem;
@@ -101,13 +102,7 @@
       width: 2.5rem;
       height: 2.5rem;
       padding: 0.5rem;
-      input {
-        @include posicion(absolute, 0, 0, 0, 0);
-        opacity: 0;
-        &:checked + span {
-          box-shadow: 0 0 0 2px var(--primario);
-        }
-      }
+      text-decoration: none;
       span {
         display: block;
         width: 100%;
@@ -123,7 +118,14 @@
         width: 4rem;
         height: 4rem;
         span {
-          border: 1px solid #888;
+          border: 1px solid negro(.2);
+          box-shadow: 0 0 0 0 var(--primario);
+          @include transicion;
+        }
+        &--active {
+          span {
+            box-shadow: 0 0 0 2px var(--primario);
+          }
         }
       }
     }
@@ -164,7 +166,8 @@
   }
   &__detalle {
     &__imagen {
-      display: grid;
+      // display: grid;
+      position: relative;
       &.placeholder--child {
         background: rgba(gris(70), 0.4);
         padding-bottom: 100%;
@@ -174,22 +177,9 @@
         width: 100%;
       }
       &--galeria {
-        cursor: zoom-in;
         [src] {
           margin-bottom: 0;
         }
-      }
-    }
-    &__zoom {
-      grid-area: 1 / 1;
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-      svg {
-        width: 3rem;
-        height: 3rem;
-        fill: #333;
-        margin: 1rem;
       }
     }
     &__info {
@@ -237,6 +227,12 @@
           width: 200px;
         }
       }
+    }
+  }
+  &__galeria {
+    cursor: grab;
+    .swiper-pagination-bullet-active {
+      background: var(--primario);
     }
   }
 }

@@ -33,7 +33,12 @@ const ProductosLista = ({ id, totalItems }) => {
       {!loading ? (
         <div className='row'>
           {productos
-            .filter((x) => Number(x.acf.stock) > 0)
+            .filter((x) => {
+              const stock = x.acf.colores.reduce((prev, next) => {
+                return prev + Number(next.stock);
+              }, 0);
+              return stock > 0
+            })
             .map((item, i) => (
               <LazyLoad key={i}>
                 <ProductosItem data={item} />

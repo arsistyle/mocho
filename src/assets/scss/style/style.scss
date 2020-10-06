@@ -1,11 +1,142 @@
-@import "../ars1/CONFIG";
+@import './helpers.scss';
 
+:root {
+  // Colors
 
-// Auxiliares
-@import "../ars1/auxiliares/functions";
-@import "../ars1/auxiliares/variables";
-@import "../ars1/auxiliares/mediaqueries";
-@import "../ars1/auxiliares/mixins";
+  --primario100: #{$primario100};
+  --primario200: #{$primario200};
+  --primario300: #{$primario300};
+  --primario400: #{$primario400};
+  --primario: #{$primario500};
+  --primario600: #{$primario600};
+  --primario700: #{$primario700};
+  --primario800: #{$primario800};
+  --primario900: #{$primario900};
+  --secundario100: #{$secundario100};
+  --secundario200: #{$secundario200};
+  --secundario300: #{$secundario300};
+  --secundario400: #{$secundario400};
+  --secundario: #{$secundario500};
+  --secundario600: #{$secundario600};
+  --secundario700: #{$secundario700};
+  --secundario800: #{$secundario800};
+  --secundario900: #{$secundario900};
+  --terciario100: #{$terciario100};
+  --terciario200: #{$terciario200};
+  --terciario300: #{$terciario300};
+  --terciario400: #{$terciario400};
+  --terciario: #{$terciario500};
+  --terciario600: #{$terciario600};
+  --terciario700: #{$terciario700};
+  --terciario800: #{$terciario800};
+  --terciario900: #{$terciario900};
 
-// Base 
-@import "./base/general";
+  // Typography
+  --titlesFont: #{$font-titulos};
+
+  // Layout
+  --header: 80px;
+  --logo: 180px;
+  --frame: 1360px;
+  --contentPadding: 5rem;
+  @include break(md-mw) {
+    --header: 45px;
+    --logo: 100px;
+    --contentPadding: 3rem;
+  }
+  @include break(sm-mw) {
+    --contentPadding: 1.5rem;
+  }
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.frame {
+  width: 100%;
+  max-width: var(--frame);
+  margin: auto;
+}
+
+.bg {
+  @include posicion(fixed, 0, 0, 0, 0);
+  background: rgba(gris(20), 0.8);
+  opacity: 0;
+  visibility: hidden;
+  @include transicion;
+  height: 100vh;
+  &--active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/*
+* KEYFRAMES
+*/
+
+@keyframes placeholder {
+  0%,
+  50%,
+  100% {
+    opacity: 0.75;
+  }
+  25%,
+  75% {
+    opacity: 0.5;
+  }
+}
+.placeholder {
+  &--child {
+    animation: placeholder 2s infinite forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 400ms 1 forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -3rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInDown {
+  animation: fadeInDown 400ms 1 forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 3rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 400ms 1 forwards;
+}
