@@ -76,7 +76,7 @@ export async function getProducts(id, total = 100) {
   try {
     const response = await (id
       ? WP.products()
-          .categories(id.split('.'))
+          .categories(id)
           .per_page(total)
           .timestamp(Date.now())
           .get()

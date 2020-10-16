@@ -19,6 +19,7 @@ const Detalle = () => {
   let { slug } = useParams();
   const [loading, setLoading] = useState(true);
   const [producto, setProducto] = useState([]);
+  const [state, setState] = useState(false);
   const [galeria, setGaleria] = useState([]);
   // const [toggler, setToggler] = useState(false);
   const [precios, setPrecios] = useState({
@@ -43,22 +44,20 @@ const Detalle = () => {
   };
 
   useEffect(() => {
-    async function loadProduct() {
+    const loadProduct = async () => {
       const response = await getProduct(slug);
-
       if (response[0]) {
-        setProducto({
-          state: 'encontrado',
-          ...response[0],
-        });
+        const p = response[0]; 
+        setProducto(p);
+        setState('encontrado')
         setOptions({
           items: [
             { to: '/', label: 'Inicio' },
             { to: '/productos', label: 'Productos' },
-            { to: `/productos/${slug}`, label: `${producto?.title?.rendered}`, active: true },
+            { to: `/productos/${slug}`, label: `${p?.title?.rendered}`, active: true },
           ],
         });
-        setGaleria(response[0]?.acf?.colores.filter((x) => x.stock > 0).map((x) => x.imagen));
+        setGaleria(response[0]?.acf?.colores.filter((x) => x.stock > 0).map((x) => x.imagen.url));
         setPrecios({
           actual: response[0].acf?.colores[0].precio,
           anterior: response[0].acf?.colores[0].precio_anterior,
@@ -66,9 +65,7 @@ const Detalle = () => {
         setStock(response[0]?.acf?.colores[0]?.stock);
         setColor(response[0]?.acf?.colores[0]?.nombre_color);
       } else {
-        setProducto({
-          state: 'no_encontrado',
-        });
+        setState('no-encontrado');
         setOptions({
           items: [
             { to: '/', label: 'Inicio' },
@@ -79,11 +76,11 @@ const Detalle = () => {
       }
     }
     loadProduct();
-    if (producto.state) setLoading(false);
-  }, [producto, slug]);
+    if (state) setLoading(false);
+  }, [slug, state]);
 
   return !loading ? (
-    producto.state === 'no_encontrado' ? (
+    state === 'no-encontrado' ? (
       <section className='page'>
         <Banner />
         <div className='container-fluid'>
@@ -216,16 +213,22 @@ const Detalle = () => {
                               return (
                                 <a
                                   href={`#${slug}${i + 1}`}
-                                  className='productos__colores__item'
+                                  className={`productos__colores__item ${
+                                    x.imagen_color[0] === 'imagen' && 'productos__colores__item--imagen'
+                                  }`}
                                   onClick={handleItem}
                                   name={slug}
                                   id={x.nombre_color}
                                   data-i={i}
                                   key={i}>
-                                  <span
-                                    style={{
-                                      backgroundColor: x.color,
-                                    }}></span>
+                                  {x.imagen_color[0] === 'imagen' ? (
+                                    <Image src={x.imagen.sizes.thumbnail} alt={x.alt} />
+                                  ) : (
+                                    <span
+                                      style={{
+                                        backgroundColor: x.color,
+                                      }}></span>
+                                  )}
                                 </a>
                               );
                             })}

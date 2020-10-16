@@ -117,15 +117,19 @@
       #{$t}__item {
         width: 4rem;
         height: 4rem;
-        span {
+        span, img {
           border: 1px solid negro(.2);
           box-shadow: 0 0 0 0 var(--primario);
           @include transicion;
         }
         &--active {
-          span {
+          span, img {
             box-shadow: 0 0 0 2px var(--primario);
           }
+        }
+        &--imagen {
+          width: 6rem;
+          height: 6rem;
         }
       }
     }

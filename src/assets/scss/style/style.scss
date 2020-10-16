@@ -36,12 +36,12 @@
 
   // Layout
   --header: 80px;
-  --logo: 180px;
+  --logo: 160px;
   --frame: 1360px;
   --contentPadding: 5rem;
   @include break(md-mw) {
     --header: 45px;
-    --logo: 100px;
+    --logo: 90px;
     --contentPadding: 3rem;
   }
   @include break(sm-mw) {

@@ -16,7 +16,7 @@ import '../assets/scss/style/components/Page.scss';
 const Productos = ({ slug, id }) => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState([]);
-  const { title, content, acf } = page;
+  const { title, content, acf, colecciones_id } = page;
   const options = {
     items: [
       { to: '/', label: 'Inicio' },
@@ -71,7 +71,7 @@ const Productos = ({ slug, id }) => {
               className='page__content__detail'
               dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
             <div className='productos'>
-              <ProductosLista id={acf.id_categoria} />
+              <ProductosLista id={colecciones_id} />
             </div>
           </div>
         </div>
