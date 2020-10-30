@@ -88,6 +88,7 @@ export const PHProductosDetalle = () => (
     <Banner placeholder={true} />
     <div className='container-fluid'>
       <div className='frame'>
+        <PHBreadcrumbs />
         <div className='page__content admin-content'>
           <div className='row'>
             <div className='col-xs-12 col-md-5'>

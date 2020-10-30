@@ -9,9 +9,11 @@ import { PHProductos } from './Placeholders';
 import Banner from './Banner';
 import Breadcrumb from './Breadcrumbs';
 import ProductosLista from './Productos--Lista';
+import SEO from './SEO';
 
 import '../assets/scss/style/components/Productos.scss';
 import '../assets/scss/style/components/Page.scss';
+import { HTML } from '../ars1';
 
 const Productos = ({ slug, id }) => {
   const [loading, setLoading] = useState(true);
@@ -46,37 +48,49 @@ const Productos = ({ slug, id }) => {
   return loading ? (
     <PHProductos />
   ) : (
-    <section className='page'>
-      <Banner
-        imagen={acf.imagen}
-        title={page.parent ? `Productos - ${title.rendered}` : title.rendered}
-        subtitle={acf.subtitle}
-        container='true'
+    <>
+      <SEO
+        title={HTML(title.rendered)}
+        description={acf.description}
+        url={`${process.env.REACT_APP_PUBLIC_URL}/productos`}
+        image={acf.image_og}
       />
-      <div className='container-fluid'>
-        <div className='frame'>
-          <Breadcrumb separator={<IoIosArrowForward />}>
-            {options.items.map(({ to, label, active }) => {
-              return (
-                <Link
-                  className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`}
-                  key={to}
-                  to={to}
-                  dangerouslySetInnerHTML={{ __html: label }}></Link>
-              );
-            })}
-          </Breadcrumb>
-          <div className='page__content'>
-            <div
-              className='page__content__detail'
-              dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
-            <div className='productos'>
-              <ProductosLista id={colecciones_id} />
+      <section className='page'>
+        <Banner
+          imagen={acf.imagen}
+          title={title.rendered}
+          subtitle={acf.subtitle}
+          container='true'
+        />
+        <div className='container-fluid'>
+          <div className='frame'>
+            <Breadcrumb separator={<IoIosArrowForward />}>
+              {options.items.map(({ to, label, active }) => {
+                return (
+                  <Link
+                    className={`breadcrumbs__link ${
+                      active && `breadcrumbs__link--active`
+                    }`}
+                    key={to}
+                    to={to}
+                    dangerouslySetInnerHTML={{ __html: label }}
+                  ></Link>
+                );
+              })}
+            </Breadcrumb>
+            <div className='page__content'>
+              <div
+                className='page__content__detail'
+                dangerouslySetInnerHTML={{ __html: content.rendered }}
+              ></div>
+              <div className='productos'>
+                <ProductosLista id={colecciones_id} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

@@ -11,7 +11,8 @@ import Banner from './Banner';
 import Breadcrumb from './Breadcrumbs';
 import Galeria from './Galeria';
 
-import { MILES } from '../ars1';
+import { HTML, MILES } from '../ars1';
+import SEO from './SEO';
 
 const imageError = require('../assets/img/catalogo-error.svg');
 
@@ -33,7 +34,9 @@ const Detalle = () => {
   const handleItem = (el) => {
     const i = Number(el.currentTarget.getAttribute('data-i'));
     const colors = document.querySelectorAll('.productos__colores__item');
-    colors.forEach((x) => x.classList.remove('productos__colores__item--active'));
+    colors.forEach((x) =>
+      x.classList.remove('productos__colores__item--active')
+    );
     el.currentTarget.classList.add('productos__colores__item--active');
     setPrecios({
       actual: producto?.acf?.colores[i].precio,
@@ -47,17 +50,26 @@ const Detalle = () => {
     const loadProduct = async () => {
       const response = await getProduct(slug);
       if (response[0]) {
-        const p = response[0]; 
+        const p = response[0];
         setProducto(p);
-        setState('encontrado')
+        setState('encontrado');
         setOptions({
           items: [
             { to: '/', label: 'Inicio' },
             { to: '/productos', label: 'Productos' },
-            { to: `/productos/${slug}`, label: `${p?.title?.rendered}`, active: true },
+            {
+              to: `/productos/${slug}`,
+              label: `${p?.title?.rendered}`,
+              active: true,
+            },
           ],
         });
-        setGaleria(response[0]?.acf?.colores.filter((x) => x.stock > 0).map((x) => x.imagen.url));
+        setGaleria([
+          // response[0]?.acf?.colores.length > 1 && response[0].acf.imagen,
+          ...response[0]?.acf?.colores
+            .filter((x) => x.stock > 0)
+            .map((x) => x.imagen.url),
+        ]);
         setPrecios({
           actual: response[0].acf?.colores[0].precio,
           anterior: response[0].acf?.colores[0].precio_anterior,
@@ -70,11 +82,15 @@ const Detalle = () => {
           items: [
             { to: '/', label: 'Inicio' },
             { to: '/productos', label: 'Productos' },
-            { to: `/productos/${slug}`, label: 'Producto no encontrado', active: true },
+            {
+              to: `/productos/${slug}`,
+              label: 'Producto no encontrado',
+              active: true,
+            },
           ],
         });
       }
-    }
+    };
     loadProduct();
     if (state) setLoading(false);
   }, [slug, state]);
@@ -89,10 +105,13 @@ const Detalle = () => {
               {options.items.map(({ to, label, active }) => {
                 return (
                   <Link
-                    className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`}
+                    className={`breadcrumbs__link ${
+                      active && `breadcrumbs__link--active`
+                    }`}
                     key={to}
                     to={to}
-                    dangerouslySetInnerHTML={{ __html: label }}></Link>
+                    dangerouslySetInnerHTML={{ __html: label }}
+                  ></Link>
                 );
               })}
             </Breadcrumb>
@@ -105,15 +124,18 @@ const Detalle = () => {
                 </div>
                 <div className='col-xs-12 col-md-7'>
                   <div className='productos__detalle__info'>
-                    <h1 className='productos__detalle__info__title'>Producto no encontrado</h1>
+                    <h1 className='productos__detalle__info__title'>
+                      Producto no encontrado
+                    </h1>
                     <p>
-                      Haz ingresado una URL de un producto que no tenemos o que no existe, vuelve a
-                      navegar en nuestro catálogo.
+                      Haz ingresado una URL de un producto que no tenemos o que
+                      no existe, vuelve a navegar en nuestro catálogo.
                     </p>
                     <div className='separador--big'></div>
                     <Link
                       to='/productos'
-                      className='btn btn--primario productos__detalle__info__btn'>
+                      className='btn btn--primario productos__detalle__info__btn'
+                    >
                       Ir al Catálogo
                     </Link>
                   </div>
@@ -125,6 +147,13 @@ const Detalle = () => {
       </section>
     ) : (
       <section className='page'>
+        <SEO
+          title={HTML(producto.title.rendered)}
+          image={producto?.acf?.imagen}
+          url={`${process.env.REACT_APP_PUBLIC_URL}/productos/${slug}`}
+          description={producto.acf.descripcion_corta}
+          type='website'
+        />
         <Banner imagen={producto?.acf?.imagen} />
         <div className='container-fluid'>
           <div className='frame'>
@@ -132,10 +161,13 @@ const Detalle = () => {
               {options.items.map(({ to, label, active }) => {
                 return (
                   <Link
-                    className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`}
+                    className={`breadcrumbs__link ${
+                      active && `breadcrumbs__link--active`
+                    }`}
                     key={to}
                     to={to}
-                    dangerouslySetInnerHTML={{ __html: label }}></Link>
+                    dangerouslySetInnerHTML={{ __html: label }}
+                  ></Link>
                 );
               })}
             </Breadcrumb>
@@ -144,8 +176,11 @@ const Detalle = () => {
                 <div className='col-xs-12 col-md-5'>
                   <div
                     className={`productos__detalle__imagen ${
-                      producto?.acf?.galeria ? 'productos__detalle__imagen--galeria' : ''
-                    }`}>
+                      producto?.acf?.galeria
+                        ? 'productos__detalle__imagen--galeria'
+                        : ''
+                    }`}
+                  >
                     <div className='productos__tags'>
                       {producto?.acf?.nuevo && (
                         <div className='productos__tags__item productos__tags__item--nuevo'>
@@ -165,19 +200,33 @@ const Detalle = () => {
                     </div>
 
                     {galeria.length > 1 ? (
-                      <Galeria data={galeria} className='productos__galeria' slug={slug} />
+                      <Galeria
+                        data={galeria}
+                        className='productos__galeria'
+                        slug={slug}
+                      />
                     ) : (
-                      <Image src={producto?.acf?.imagen} alt={producto?.title.rendered} />
+                      <Image
+                        src={producto?.acf?.imagen}
+                        alt={producto?.title.rendered}
+                      />
                     )}
                   </div>
                 </div>
                 <div className='col-xs-12 col-md-7'>
                   <div className='productos__detalle__info'>
-                    <h1
-                      className='productos__detalle__info__title'
-                      dangerouslySetInnerHTML={{ __html: producto?.title.rendered }}></h1>
+                    <h1 className='productos__detalle__info__title'>
+                      {HTML(producto.title.rendered)}
+                    </h1>
+                    {producto?.acf?.colores.length > 1 && (
+                      <h3 className='productos__detalle__info__colorName'>
+                        {nombre_color}
+                      </h3>
+                    )}
                     <h2 className='productos__detalle__info__valor color--secundario'>
-                      {producto?.acf?.oferta && <span>{MILES(precios.anterior, '$')}</span>}
+                      {producto?.acf?.oferta && (
+                        <span>{MILES(precios.anterior, '$')}</span>
+                      )}
                       {MILES(precios.actual, '$')}
                     </h2>
                     {producto?.acf['descripcion_corta'] && (
@@ -185,24 +234,27 @@ const Detalle = () => {
                         {producto?.acf['descripcion_corta']}
                       </p>
                     )}
-                    <div className='productos__detalle__info__tabla tabla tabla--borde'>
-                      <table>
-                        <tbody>
-                          {producto?.acf?.stock && (
-                            <tr>
-                              <td>Stock</td>
-                              <td>{stock}</td>
-                            </tr>
-                          )}
-                          {producto?.acf?.tallas && (
-                            <tr>
-                              <td>Tallas</td>
-                              <td>{producto?.acf?.tallas}</td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
+                    {(producto?.acf?.stock || producto?.acf?.tallas) && (
+                      <div className='productos__detalle__info__tabla tabla tabla--borde'>
+                        <table>
+                          <tbody>
+                            {producto?.acf?.stock && (
+                              <tr>
+                                <td>Stock</td>
+                                <td>{stock}</td>
+                              </tr>
+                            )}
+                            {producto?.acf?.tallas && (
+                              <tr>
+                                <td>Tallas</td>
+                                <td>{producto?.acf?.tallas}</td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+
                     {producto?.acf?.colores?.length > 1 && (
                       <>
                         <p>Selecciona tu color</p>
@@ -214,20 +266,26 @@ const Detalle = () => {
                                 <a
                                   href={`#${slug}${i + 1}`}
                                   className={`productos__colores__item ${
-                                    x.imagen_color[0] === 'imagen' && 'productos__colores__item--imagen'
+                                    x.imagen_color === 'imagen' &&
+                                    'productos__colores__item--imagen'
                                   }`}
                                   onClick={handleItem}
                                   name={slug}
                                   id={x.nombre_color}
                                   data-i={i}
-                                  key={i}>
-                                  {x.imagen_color[0] === 'imagen' ? (
-                                    <Image src={x.imagen.sizes.thumbnail} alt={x.alt} />
+                                  key={i}
+                                >
+                                  {x.imagen_color === 'imagen' ? (
+                                    <Image
+                                      src={x.imagen.sizes.thumbnail}
+                                      alt={x.alt}
+                                    />
                                   ) : (
                                     <span
                                       style={{
                                         backgroundColor: x.color,
-                                      }}></span>
+                                      }}
+                                    ></span>
                                   )}
                                 </a>
                               );
@@ -245,10 +303,13 @@ const Detalle = () => {
                         producto?.acf?.colores?.length > 1
                           ? `%0D%0A%2AColor: ${nombre_color}%2A`
                           : ''
-                      }%0D%0A${producto?.acf?.extra_data}%0D%0A${producto?.acf?.imagen}`}
+                      }%0D%0A${producto?.acf?.extra_data}%0D%0A${
+                        producto?.acf?.imagen
+                      }`}
                       className='btn btn--primario productos__detalle__info__btn'
                       target='_blank'
-                      rel='noopener noreferrer'>
+                      rel='noopener noreferrer'
+                    >
                       <span>Lo quiero</span>
                       <IoLogoWhatsapp />
                     </a>
@@ -257,7 +318,10 @@ const Detalle = () => {
                 <div className='col-xs-12'>
                   <div
                     className='page__content__detail'
-                    dangerouslySetInnerHTML={{ __html: producto?.acf?.contenido }}></div>
+                    dangerouslySetInnerHTML={{
+                      __html: producto?.acf?.contenido,
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>

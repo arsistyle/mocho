@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import { getMenu } from './services';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -11,6 +16,7 @@ import Footer from './components/Footer';
 // import Error404 from './components/Error404';
 import './assets/scss/ars1/ars1.scss';
 import './assets/scss/style/style.scss';
+import SEO from './components/SEO';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -28,7 +34,7 @@ const COMPONENTES = {
   Productos,
   // Categoria,
   ProductosDetalle,
-  Colecciones
+  Colecciones,
   // Error404,
 };
 
@@ -92,6 +98,7 @@ function App() {
 
   return (
     <main className='App'>
+      <SEO title='Cargando...' />
       <Router>
         <ScrollToTop />
         <Header />
@@ -109,13 +116,12 @@ function App() {
                     key={i}
                     path={x.path}
                     exact={x.exact}
-                    // render={({ match }) => <x.component match={match} slug={x.slug} />}
-                    {...extras}>
+                    {...extras}
+                  >
                     <x.component slug={x.slug}></x.component>
                   </Route>
                 )
               );
-              // return x.component && <Route key={i} path={x.url} exact={x.exact} render={({ match }) => <x.component match={match} slug={x.slug} />} {...extras} />;
             })}
         </Switch>
       </Router>

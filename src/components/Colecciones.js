@@ -6,12 +6,14 @@ import { getPage } from '../services';
 
 import { PHColecciones } from './Placeholders';
 
+import SEO from './SEO';
 import Banner from './Banner';
 import Breadcrumb from './Breadcrumbs';
 import ColeccionesLista from './Colecciones--Lista';
 
 import '../assets/scss/style/components/Colecciones.scss';
 import '../assets/scss/style/components/Page.scss';
+import { HTML } from '../ars1';
 
 const Colecciones = ({ slug, id }) => {
   const [loading, setLoading] = useState(true);
@@ -39,9 +41,10 @@ const Colecciones = ({ slug, id }) => {
     <PHColecciones />
   ) : (
     <section className='page'>
+      <SEO title={HTML(title.rendered)} />
       <Banner
         imagen={acf.imagen}
-        title={page.parent ? `Colecciones - ${title.rendered}` : title.rendered}
+        title={HTML(title.rendered)}
         subtitle={acf.subtitle}
         container='true'
       />
@@ -51,17 +54,21 @@ const Colecciones = ({ slug, id }) => {
             {options.items.map(({ to, label, active }) => {
               return (
                 <Link
-                  className={`breadcrumbs__link ${active && `breadcrumbs__link--active`}`}
+                  className={`breadcrumbs__link ${
+                    active && `breadcrumbs__link--active`
+                  }`}
                   key={to}
                   to={to}
-                  dangerouslySetInnerHTML={{ __html: label }}></Link>
+                  dangerouslySetInnerHTML={{ __html: label }}
+                ></Link>
               );
             })}
           </Breadcrumb>
           <div className='page__content'>
             <div
               className='page__content__detail'
-              dangerouslySetInnerHTML={{ __html: content.rendered }}></div>
+              dangerouslySetInnerHTML={{ __html: content.rendered }}
+            ></div>
             <div className='colecciones'>
               <ColeccionesLista />
             </div>

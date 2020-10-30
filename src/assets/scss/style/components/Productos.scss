@@ -195,6 +195,9 @@
           margin-bottom: 4rem;
         }
       }
+      &__colorName {
+        opacity: .5;
+      }
       &__valor {
         display: flex;
         align-items: center;

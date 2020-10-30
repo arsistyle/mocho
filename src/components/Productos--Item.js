@@ -44,7 +44,7 @@ export const ProductosItem = ({ data }) => {
         </div>
       </div>
       <div className='productos__image'>
-        {<Image src={`${acf.colores[0].imagen.url}`} alt={name} />}
+        {<Image src={`${acf.imagen}`} alt={name} />}
       </div>
       <div className='productos__info'>
         <h3

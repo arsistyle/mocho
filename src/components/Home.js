@@ -3,24 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPage } from '../services';
 import { PHHome } from './Placeholders';
-// import { PHHero, PHColecciones, PHProductos } from './Placeholders';
 
 /** COMPONENTS **/
+import SEO from './SEO';
 import Hero from './Hero';
 import Colecciones from './Colecciones--Lista';
 import Productos from './Productos--Lista';
-
-// const PLACEHOLDERS = loadable(() => import('./Placeholders'));
-
-// const Hero = loadable(() => import('./Hero'), {
-//   loading: <PHHero />,
-// });
-// const Colecciones = loadable(() => import('./Colecciones--Lista'), {
-//   loading: <PHColecciones />,
-// });
-// const Productos = loadable(() => import('./Productos--Lista'), {
-//   loading: <PHProductos />,
-// });
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -39,6 +27,11 @@ const Home = () => {
     <PHHome />
   ) : (
     <>
+      <SEO
+        description={page.acf.description}
+        image={page.acf.image_og}
+        url={process.env.REACT_APP_PUBLIC_URL}
+      />
       <Hero
         title={page.acf.titulo}
         images={{
