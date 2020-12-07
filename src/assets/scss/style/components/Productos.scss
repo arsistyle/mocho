@@ -24,7 +24,7 @@
     display: flex;
     align-items: flex-start;
     padding: 1rem;
-    @include posicion(absolute,0,0,null,0);
+    @include posicion(absolute, 0, 0, null, 0);
     z-index: 2;
     &__content {
       width: 100%;
@@ -34,14 +34,14 @@
     }
     &__item {
       display: inline-flex;
-      padding: 0.3rem .5rem;
+      padding: 0.3rem 0.5rem;
       text-transform: uppercase;
       font-weight: 700;
       font-size: 1rem;
-      letter-spacing: .1rem;
+      letter-spacing: 0.1rem;
       color: blanco(1);
       border-radius: 3px;
-      margin: 0 0 .5rem .5rem;
+      margin: 0 0 0.5rem 0.5rem;
       white-space: nowrap;
       &--oferta {
         background: var(--primario);
@@ -117,13 +117,15 @@
       #{$t}__item {
         width: 4rem;
         height: 4rem;
-        span, img {
-          border: 1px solid negro(.2);
+        span,
+        img {
+          border: 1px solid negro(0.2);
           box-shadow: 0 0 0 0 var(--primario);
           @include transicion;
         }
         &--active {
-          span, img {
+          span,
+          img {
             box-shadow: 0 0 0 2px var(--primario);
           }
         }
@@ -187,6 +189,7 @@
       }
     }
     &__info {
+      margin-bottom: 5rem;
       &__title {
         margin-top: 0;
         &.placeholder--child {
@@ -196,7 +199,7 @@
         }
       }
       &__colorName {
-        opacity: .5;
+        opacity: 0.5;
       }
       &__valor {
         display: flex;
@@ -237,9 +240,53 @@
     }
   }
   &__galeria {
+    margin-bottom: 5rem;
+    background: #efefef;
     cursor: grab;
     .swiper-pagination-bullet-active {
       background: var(--primario);
+    }
+  }
+  &__tallas {
+    margin-bottom: 3rem;
+    display: flex;
+    &__item {
+      position: relative;
+      border: 1px solid negro(0.2);
+      border-right: 0;
+      cursor: default;
+      &:last-of-type {
+        border-right: 1px solid negro(0.2);
+      }
+      input {
+        @include posicion(absolute, 0, 0, 0, 0);
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        // &:checked + label {
+        //   background-color: negro(.1);
+        // }
+      }
+      &--active {
+        span {
+          background-color: negro(0.1);
+        }
+      }
+      &--disabled {
+        pointer-events: none;
+        span {
+          opacity: 0.5;
+        }
+      }
+    }
+    &__talla {
+      display: block;
+      height: 3rem;
+      width: 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
     }
   }
 }

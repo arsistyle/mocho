@@ -35,11 +35,19 @@ export const ProductosItem = ({ data }) => {
               Oferta
             </div>
           )}
-          {/* {console.log(stock, acf.colores.length)} */}
-          {stock <= acf.colores.length && (
-            <div className='productos__tags__item productos__tags__item--ultimo'>
-              Últimas unidades
-            </div>
+          {acf.tipo_stock && (
+            <>
+              {stock <= acf.colores.length && (
+                <div className='productos__tags__item productos__tags__item--ultimo'>
+                  Últimas unidades
+                </div>
+              )}
+              {stock === 0 && (
+                <div className='productos__tags__item productos__tags__item--ultimo'>
+                  Sin stock
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

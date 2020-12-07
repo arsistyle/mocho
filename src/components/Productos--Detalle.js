@@ -22,7 +22,6 @@ const Detalle = () => {
   const [producto, setProducto] = useState([]);
   const [state, setState] = useState(false);
   const [galeria, setGaleria] = useState([]);
-  // const [toggler, setToggler] = useState(false);
   const [precios, setPrecios] = useState({
     actual: 0,
     anterior: 0,
@@ -30,8 +29,9 @@ const Detalle = () => {
   const [stock, setStock] = useState(0);
   const [nombre_color, setColor] = useState(undefined);
   const [options, setOptions] = useState({});
+  const [talla, setTalla] = useState('');
 
-  const handleItem = (el) => {
+  const handleColor = (el) => {
     const i = Number(el.currentTarget.getAttribute('data-i'));
     const colors = document.querySelectorAll('.productos__colores__item');
     colors.forEach((x) =>
@@ -45,6 +45,16 @@ const Detalle = () => {
     setStock(producto?.acf?.colores[i].stock);
     setColor(producto?.acf?.colores[i].nombre_color);
   };
+
+  const handleTalla = (el) => {
+    const tallas = document.querySelectorAll('.productos__tallas__item');
+    tallas.forEach((x) => {
+      x.classList.remove('productos__tallas__item--active');
+    })
+    el.currentTarget.classList.add('productos__tallas__item--active');
+    setTalla(el.currentTarget.getAttribute('data-talla'));
+    // console.log(el.target);
+  }
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -64,10 +74,22 @@ const Detalle = () => {
             },
           ],
         });
-        setGaleria([
-          // response[0]?.acf?.colores.length > 1 && response[0].acf.imagen,
+        /*if (response[0].acf.tipo_stock === 'limitado') {
+          setGaleria([
           ...response[0]?.acf?.colores
             .filter((x) => x.stock > 0)
+            .map((x) => x.imagen.url),
+        ]);
+        } else {
+          setGaleria([
+            ...response[0]?.acf?.colores
+              // .filter((x) => x.stock > 0)
+              .map((x) => x.imagen.url),
+          ]);
+        }*/
+        setGaleria([
+          ...response[0]?.acf?.colores
+            // .filter((x) => x.stock > 0)
             .map((x) => x.imagen.url),
         ]);
         setPrecios({
@@ -215,6 +237,8 @@ const Detalle = () => {
                 </div>
                 <div className='col-xs-12 col-md-7'>
                   <div className='productos__detalle__info'>
+
+                    {/* Infor general */}
                     <h1 className='productos__detalle__info__title'>
                       {HTML(producto.title.rendered)}
                     </h1>
@@ -234,33 +258,42 @@ const Detalle = () => {
                         {producto?.acf['descripcion_corta']}
                       </p>
                     )}
-                    {(producto?.acf?.stock || producto?.acf?.tallas) && (
-                      <div className='productos__detalle__info__tabla tabla tabla--borde'>
-                        <table>
-                          <tbody>
-                            {producto?.acf?.stock && (
-                              <tr>
-                                <td>Stock</td>
-                                <td>{stock}</td>
-                              </tr>
-                            )}
-                            {producto?.acf?.tallas && (
-                              <tr>
-                                <td>Tallas</td>
-                                <td>{producto?.acf?.tallas}</td>
-                              </tr>
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
+
+                    {/* Data si el producto tiene información */}
+                    {/* TODO: Trabajar esta información para que se pueda agregar cualquier tipo, onda material, peso, etc */}
+                    {producto.acf.tipo_stock && (
+                      <>
+                        {(producto?.acf?.stock || producto?.acf?.tallas) && (
+                          <div className='productos__detalle__info__tabla tabla tabla--borde'>
+                            <table>
+                              <tbody>
+                                {producto?.acf?.stock && (
+                                  <tr>
+                                    <td>Stock</td>
+                                    <td>{stock}</td>
+                                  </tr>
+                                )}
+                                {producto?.acf?.tallas && (
+                                  <tr>
+                                    <td>Tallas</td>
+                                    <td>{producto?.acf?.tallas}</td>
+                                  </tr>
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                      </>
                     )}
 
+
+                    {/* Selección color/modelo */}
                     {producto?.acf?.colores?.length > 1 && (
                       <>
-                        <p>Selecciona tu color</p>
+                        <p>Selecciona tu color / modelo</p>
                         <div className='productos__colores productos__colores--detalle'>
                           {producto?.acf?.colores
-                            .filter((x) => x.stock > 0)
+                            // .filter((x) => x.stock > 0)
                             .map((x, i) => {
                               return (
                                 <a
@@ -269,7 +302,7 @@ const Detalle = () => {
                                     x.imagen_color === 'imagen' &&
                                     'productos__colores__item--imagen'
                                   }`}
-                                  onClick={handleItem}
+                                  onClick={handleColor}
                                   name={slug}
                                   id={x.nombre_color}
                                   data-i={i}
@@ -293,18 +326,53 @@ const Detalle = () => {
                         </div>
                       </>
                     )}
+
+                    {/* Selección talla */}
+                    {producto.acf.tallas && (
+                      <>
+                        <p>Selecciona tu talla</p>
+                        <div className='productos__tallas'>
+                          {producto.acf.tallas.map((x, i) => {
+                            return (
+                              <div
+                                className={`productos__tallas__item ${
+                                  Number(x.stock) === 0 &&
+                                  'productos__tallas__item--disabled'
+                                }`}
+                                key={i}
+                                onClick={handleTalla}
+                                data-talla={x.talla.toUpperCase()}
+                              >
+                                <span
+                                  className='productos__tallas__talla'
+                                  htmlFor={x.talla}
+                                >
+                                  {x.talla.toUpperCase()}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
+
+                    {/* Botón para comprar */}
                     <a
                       href={`${
                         process.env.REACT_APP_WSP
-                      }Hola gente de Mocho%2C%0D%0AQuiero comprar las calcetas%3A%0D%0A%2A${producto?.title.rendered.replace(
+                      }Hola gente de Mocho%2C%0D%0AQuiero comprar %3A%0D%0A%2A${producto?.title.rendered.replace(
                         '&#8211;',
                         '-'
                       )}%2A%0D%0A%2A${MILES(precios.actual, '$')}%2A${
                         producto?.acf?.colores?.length > 1
-                          ? `%0D%0A%2AColor: ${nombre_color}%2A`
+                          ? `%0D%0A%2AColor/Modelo: ${nombre_color}%2A`
+                          : ''
+                      }${
+                        talla
+                          ? `%0D%0A%2ATalla: ${talla}%2A`
                           : ''
                       }%0D%0A${producto?.acf?.extra_data}%0D%0A${
-                        producto?.acf?.imagen
+                        producto.link
                       }`}
                       className='btn btn--primario productos__detalle__info__btn'
                       target='_blank'
@@ -315,6 +383,8 @@ const Detalle = () => {
                     </a>
                   </div>
                 </div>
+
+                {/* Información adicional con cuerpo de contenido desde WP */}
                 <div className='col-xs-12'>
                   <div
                     className='page__content__detail'
